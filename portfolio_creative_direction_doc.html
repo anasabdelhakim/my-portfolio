@@ -1,0 +1,884 @@
+
+<style>
+  :root {
+    --accent: #7C3AED;
+    --accent-dim: #4C1D95;
+    --mono: 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); color: var(--color-text-primary); }
+
+  .doc { max-width: 900px; padding: 0 0 4rem; }
+
+  .cover {
+    border-left: 3px solid var(--accent);
+    padding: 2rem 0 2rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .cover-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: 1rem;
+  }
+  .cover-title {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .cover-sub {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    max-width: 520px;
+  }
+  .cover-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    font-size: 12px;
+    font-family: var(--mono);
+    padding: 4px 10px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: 4px;
+    color: var(--color-text-secondary);
+  }
+
+  .toc {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    border: 0.5px solid var(--color-border-tertiary);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .toc-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: 1rem;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px 16px;
+  }
+  .toc-item {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 3px 0;
+    transition: color 0.15s;
+  }
+  .toc-item:hover { color: var(--accent); }
+  .toc-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    min-width: 20px;
+  }
+
+  .section {
+    margin-bottom: 3.5rem;
+    scroll-margin-top: 20px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .subsection { margin-bottom: 2rem; }
+  .subsection-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    margin-bottom: 0.75rem;
+  }
+
+  .body-text {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .palette-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .swatch-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    border: 0.5px solid var(--color-border-tertiary);
+  }
+  .swatch-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--color-text-tertiary);
+    text-align: center;
+  }
+
+  .type-specimen {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-lg);
+    border: 0.5px solid var(--color-border-tertiary);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 6px 0;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+    min-width: 80px;
+  }
+  .type-sample { flex: 1; }
+
+  .wireframe {
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .wireframe-label {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--color-text-tertiary);
+    position: absolute;
+    top: 10px;
+    right: 12px;
+  }
+  .wf-pre {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--color-text-secondary);
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  .anim-card {
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    background: var(--color-background-primary);
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .anim-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .anim-name {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .anim-tag {
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+  .tag-motion { background: #EDE9FE; color: #5B21B6; }
+  .tag-css { background: #D1FAE5; color: #065F46; }
+  .tag-scroll { background: #FEF3C7; color: #92400E; }
+  .anim-code {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+    border-radius: 6px;
+    padding: 0.75rem;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .anim-desc {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-top: 0.5rem;
+    line-height: 1.55;
+  }
+
+  .page-block {
+    border-left: 2px solid var(--color-border-secondary);
+    padding-left: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+  .page-block:hover { border-left-color: var(--accent); }
+  .page-name {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .page-url {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.6rem;
+  }
+  .page-desc {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+  }
+  .page-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 0.6rem;
+  }
+  .ptag {
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: 3px;
+    color: var(--color-text-tertiary);
+  }
+
+  .perf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  .perf-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-tertiary);
+    padding: 0.9rem 1rem;
+  }
+  .perf-card-title {
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .perf-card-body {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+  }
+
+  .callout {
+    background: #F5F3FF;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1rem;
+    font-size: 13px;
+    color: #3730A3;
+    line-height: 1.6;
+  }
+
+  .divider {
+    height: 0.5px;
+    background: var(--color-border-tertiary);
+    margin: 2.5rem 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .tag-motion { background: #2E1065; color: #C4B5FD; }
+    .tag-css { background: #022C22; color: #6EE7B7; }
+    .tag-scroll { background: #292524; color: #FCD34D; }
+    .callout { background: #1E1B4B; color: #A5B4FC; border-left-color: #818CF8; }
+    .toc-item:hover { color: #A78BFA; }
+  }
+</style>
+
+<div class="doc">
+  <h2 class="sr-only">Senior Developer Portfolio — Creative Direction Document</h2>
+
+  <!-- Cover -->
+  <div class="cover">
+    <div class="cover-eyebrow">Creative Direction Document · v1.0</div>
+    <div class="cover-title">Full-Stack Portfolio<br>Architecture Rethink</div>
+    <div class="cover-sub">A comprehensive design strategy for a Senior/Staff-level engineering portfolio. High-end tech aesthetic. Asymmetric layouts. Physics-based motion. Built exclusively on Next.js App Router, Tailwind v4, Framer Motion, Shadcn UI, and Aceternity/Magic UI.</div>
+    <div class="cover-meta">
+      <span class="meta-pill">Next.js 15 · App Router</span>
+      <span class="meta-pill">Tailwind CSS v4</span>
+      <span class="meta-pill">Framer Motion 11</span>
+      <span class="meta-pill">Shadcn UI</span>
+      <span class="meta-pill">Aceternity UI</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <div class="toc-grid">
+      <div class="toc-item" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})"><span class="toc-num">01</span>Visual Identity System</div>
+      <div class="toc-item" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})"><span class="toc-num">02</span>Typography Architecture</div>
+      <div class="toc-item" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})"><span class="toc-num">03</span>Layout Philosophy</div>
+      <div class="toc-item" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})"><span class="toc-num">04</span>Page-by-Page Structure</div>
+      <div class="toc-item" onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})"><span class="toc-num">05</span>Animation Strategy</div>
+      <div class="toc-item" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'})"><span class="toc-num">06</span>Component Mapping</div>
+      <div class="toc-item" onclick="document.getElementById('s7').scrollIntoView({behavior:'smooth'})"><span class="toc-num">07</span>Performance Architecture</div>
+      <div class="toc-item" onclick="document.getElementById('s8').scrollIntoView({behavior:'smooth'})"><span class="toc-num">08</span>Implementation Roadmap</div>
+    </div>
+  </div>
+
+  <!-- S1: Visual Identity -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Visual Identity System</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Design Verdict</div>
+      <div class="body-text">The aesthetic is <strong style="font-weight:500;color:var(--color-text-primary)">Precision Dark</strong> — a near-black surface system that reads like engineering tooling, not a creative portfolio. The signature element is a <strong style="font-weight:500;color:var(--color-text-primary)">razor-thin violet grid</strong> in the hero that parallax-scrolls at 0.4× the page speed, suggesting depth of system — not decoration. Everything else is restrained: mono-weight type, surgical spacing, and a single high-saturation accent used exactly twice per screen.</div>
+      <div class="callout">Design constraint: The accent (#7C3AED) never appears on more than 15% of any viewport. When it appears, it means something.</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Color Tokens</div>
+      <div class="palette-row">
+        <div class="swatch"><div class="swatch-box" style="background:#09090B;"></div><div class="swatch-label">--bg-base<br>#09090B</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#111113;"></div><div class="swatch-label">--bg-surface<br>#111113</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#1C1C1F;"></div><div class="swatch-label">--bg-elevated<br>#1C1C1F</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#2A2A2E;"></div><div class="swatch-label">--border-sub<br>#2A2A2E</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#7C3AED;"></div><div class="swatch-label">--accent<br>#7C3AED</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#A78BFA;"></div><div class="swatch-label">--accent-hi<br>#A78BFA</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#FAFAFA;"></div><div class="swatch-label">--text-pri<br>#FAFAFA</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#71717A;"></div><div class="swatch-label">--text-sec<br>#71717A</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#3F3F46;"></div><div class="swatch-label">--text-dim<br>#3F3F46</div></div>
+      </div>
+      <div class="body-text">Define all tokens in <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">globals.css</code> as CSS custom properties and expose them to Tailwind v4 via <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">@theme</code> blocks. Never hardcode hex values in component files.</div>
+    </div>
+  </div>
+
+  <!-- S2: Typography -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Typography Architecture</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Type Pairing</div>
+      <div class="body-text">Two faces. No compromise. The goal is: display type that engineers recognize as intentional, body type that disappears into readability.</div>
+      <div class="type-specimen">
+        <div class="type-row">
+          <span class="type-tag">DISPLAY<br>--font-display</span>
+          <span class="type-sample" style="font-size:28px;font-weight:300;letter-spacing:-0.04em;line-height:1.1">Geist · 300 weight · −4% tracking</span>
+        </div>
+        <div class="type-row">
+          <span class="type-tag">HERO WORD<br>--font-hero</span>
+          <span class="type-sample" style="font-size:22px;font-weight:500;letter-spacing:-0.02em">Geist · 500 weight · −2% tracking</span>
+        </div>
+        <div class="type-row">
+          <span class="type-tag">BODY<br>--font-body</span>
+          <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.75;letter-spacing:0.01em">Geist Mono · 400 · +1% tracking · used for all prose</span>
+        </div>
+        <div class="type-row">
+          <span class="type-tag">LABEL<br>--font-label</span>
+          <span class="type-sample" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-text-secondary)">GEIST · 500 · CAPS · +10% TRACKING</span>
+        </div>
+        <div class="type-row">
+          <span class="type-tag">CODE<br>--font-code</span>
+          <span class="type-sample" style="font-size:13px;font-family:'Courier New',monospace;color:#A78BFA">JetBrains Mono · used for tech stack tags, metrics</span>
+        </div>
+      </div>
+      <div class="body-text">Load via <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">next/font/google</code> with <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">display: 'swap'</code> and <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">preload: true</code>. Assign to CSS vars in the root layout. The mono-as-body choice is the single biggest signal that you think in systems.</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Type Scale</div>
+      <div class="anim-code">/* Tailwind v4 @theme block */
+--text-hero:    clamp(64px, 10vw, 120px);   /* 1 use: hero h1 */
+--text-xl:      clamp(40px, 5vw, 64px);     /* section headings */
+--text-lg:      clamp(24px, 3vw, 36px);     /* card titles */
+--text-base:    16px;                        /* body copy */
+--text-sm:      14px;                        /* secondary body */
+--text-xs:      12px;                        /* labels, captions */
+--text-xxs:     11px;                        /* all-caps metadata */</div>
+    </div>
+  </div>
+
+  <!-- S3: Layout Philosophy -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Layout Philosophy</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">The Grid Contract</div>
+      <div class="body-text">Abandon the 12-column grid as a religion. Instead: a <strong style="font-weight:500;color:var(--color-text-primary)">named-area CSS grid</strong> defined per-section, where each section gets its own spatial logic. The hero is a split, the philosophy section is offset, the projects section is magazine-column. The single unifying rule: no element ever starts at the horizontal center.</div>
+      <div class="wireframe">
+        <div class="wireframe-label">HERO · Asymmetric Split</div>
+        <div class="wf-pre">┌─────────────────────────────────────────────────────────┐
+│  NAV (fixed · blurred bg · 80px high)                    │
+├───────────────────────────────┬─────────────────────────┤
+│                               │                         │
+│  ████ ████████████ ██         │   [GRID CANVAS]         │
+│  ████████ ████ ███            │   Aceternity·BackgroundGrid│
+│                               │   parallax at 0.4×      │
+│  ────────────────             │                         │
+│  Role · Location              │   ╔══════════╗          │
+│                               │   ║ TERMINAL ║          │
+│  [CTA: View Work ↗]           │   ║ bio card ║          │
+│  [CTA: Read CV   ]            │   ╚══════════╝          │
+│                               │                         │
+│  ─── Scroll ↓ ───────────────────────────────────────── │
+└─────────────────────────────────────────────────────────┘</div>
+      </div>
+      <div class="wireframe">
+        <div class="wireframe-label">PHILOSOPHY · Off-axis Layout</div>
+        <div class="wf-pre">┌─────────────────────────────────────────────────────────┐
+│         [SECTION LABEL: 02 / ENGINEERING PHILOSOPHY]     │
+│                                                          │
+│    ┌────────────────────────────┐                        │
+│    │  MANIFESTO TEXT            │  [THREE PRINCIPLES]    │
+│    │  Full-width statement in   │  stacked right column  │
+│    │  large display type, max   │  each with number,     │
+│    │  2 lines, left-aligned     │  title, body text      │
+│    └────────────────────────────┘                        │
+└─────────────────────────────────────────────────────────┘</div>
+      </div>
+      <div class="wireframe">
+        <div class="wireframe-label">PROJECTS · Bento-Style Deep Dives</div>
+        <div class="wf-pre">┌─────────────────────────────────────────────────────────┐
+│  ████████████████  PROJECT TITLE    [FEATURED · FULL W]  │
+│  Case study snapshot + 3 key metrics                     │
+├───────────────────────────┬─────────────────────────────┤
+│  Project B  [HALF]        │  Project C  [HALF]           │
+│  Stack tags               │  Stack tags                  │
+│  Impact metric            │  Impact metric               │
+├──────────┬────────────────┴─────────────────────────────┤
+│ Project D │  Project E                [QUARTER/3-QUARTER] │
+└──────────┴──────────────────────────────────────────────┘</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4: Page Structure -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Page-by-Page Structure</span>
+    </div>
+
+    <div class="page-block">
+      <div class="page-name">/ · Hero + Identity</div>
+      <div class="page-url">app/page.tsx</div>
+      <div class="page-desc">Split-screen layout. Left 55%: kinetic typographic reveal of name + role using a character-stagger Framer Motion animation. Right 45%: Aceternity BackgroundBeams or GridPattern with a floating terminal-style card showing current-status metadata (timezone, open-to-work state, last-deploy timestamp pulled from GitHub API). Nav is minimal — wordmark left, 3 links right, a dot-indicator for current section. A horizontal scrolling marquee of tech stack logos sits at the viewport bottom edge.</div>
+      <div class="page-tags">
+        <span class="ptag">layout: asymmetric-split</span>
+        <span class="ptag">aceternity: BackgroundBeams</span>
+        <span class="ptag">motion: char-stagger</span>
+        <span class="ptag">github: live API</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-name">#philosophy · Engineering Philosophy</div>
+      <div class="page-url">components/PhilosophySection.tsx</div>
+      <div class="page-desc">A full-width manifesto statement in --text-xl Geist Light that appears via a clip-path reveal triggered by scroll intersection. Below it, three principles rendered as numbered cards (01 / 02 / 03) using Shadcn Card with a custom dark variant — each card has a hover state that reveals a short code snippet or diagram illustrating the principle. The layout is deliberately not symmetric: the manifesto statement occupies 70% width and is left-aligned, the principles grid starts at 30% and spans to full-right.</div>
+      <div class="page-tags">
+        <span class="ptag">layout: offset-manifesto</span>
+        <span class="ptag">shadcn: Card</span>
+        <span class="ptag">motion: clip-reveal</span>
+        <span class="ptag">motion: stagger-cards</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-name">#projects · Project Deep-Dives</div>
+      <div class="page-url">components/ProjectsSection.tsx + app/projects/[slug]/page.tsx</div>
+      <div class="page-desc">Bento grid of 4–6 projects. The featured project takes full width with a large thumbnail, 3 impact metrics (using Aceternity NumberTicker), and a "Read case study →" link. Remaining projects fill a mosaic. Each card uses Aceternity CardSpotlight — a radial gradient follows cursor position on hover. Clicking any card routes to a deep-dive page at /projects/[slug] which uses a two-column layout: problem/solution on the left, tech decisions and architecture diagrams on the right. Uses Next.js dynamic routing with generateStaticParams for all slugs.</div>
+      <div class="page-tags">
+        <span class="ptag">layout: bento-mosaic</span>
+        <span class="ptag">aceternity: CardSpotlight, NumberTicker</span>
+        <span class="ptag">routing: /projects/[slug]</span>
+        <span class="ptag">motion: stagger-bento</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-name">#arsenal · Technical Arsenal</div>
+      <div class="page-url">components/ArsenalSection.tsx</div>
+      <div class="page-desc">Replaces the generic skills list entirely. Uses Aceternity InfiniteMovingCards for an auto-scrolling row of technologies, each tagged with proficiency and years. Below that, a filterable grid of tools grouped by domain (Frontend, Backend, Infrastructure, Tooling). Each tool has a compact card with a custom SVG icon, proficiency bar, and one-line "used to build X" context. The filter tabs use Shadcn Tabs with a sliding indicator via Framer Motion layout animation. No star-ratings. No circular progress bars. Hard pass.</div>
+      <div class="page-tags">
+        <span class="ptag">layout: filtered-grid</span>
+        <span class="ptag">aceternity: InfiniteMovingCards</span>
+        <span class="ptag">shadcn: Tabs</span>
+        <span class="ptag">motion: layout-tabs</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-name">#writing · Selected Writing (optional)</div>
+      <div class="page-url">components/WritingSection.tsx</div>
+      <div class="page-desc">A narrow editorial column of 3–5 articles. Each entry has a date (monospaced), a title in display type, and a reading-time estimate. On hover, the entry expands slightly with a smooth height animation and reveals a one-sentence excerpt. The background of the section uses Aceternity TextRevealCard effect for the section heading. Links to external blogs, DEV.to, or a /writing/[slug] internal route.</div>
+      <div class="page-tags">
+        <span class="ptag">layout: editorial-column</span>
+        <span class="ptag">aceternity: TextRevealCard</span>
+        <span class="ptag">motion: expand-hover</span>
+      </div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-name">#contact · Contact + Availability</div>
+      <div class="page-url">components/ContactSection.tsx</div>
+      <div class="page-desc">Not a form. A status-first contact section: the first element is an animated availability badge (green dot + "Open to Senior/Staff roles · remote" using Framer Motion pulse). Then two action cards side-by-side: Email (copies to clipboard with toast feedback via Shadcn Toast) and Schedule (links to Cal.com). Below that, a minimal social row. The section heading uses Aceternity FlipWords cycling through: "Build something.", "Lead a team.", "Architect a system."</div>
+      <div class="page-tags">
+        <span class="ptag">aceternity: FlipWords</span>
+        <span class="ptag">shadcn: Toast</span>
+        <span class="ptag">motion: pulse-badge</span>
+        <span class="ptag">cal.com: scheduling</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S5: Animation Strategy -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Animation Strategy</span>
+    </div>
+
+    <div class="body-text" style="margin-bottom:1.25rem">All animations follow three rules: (1) transform/opacity only — no layout-affecting properties, (2) scroll-triggered via Framer Motion <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">useInView</code>, never IntersectionObserver directly, (3) every animation respects <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">prefers-reduced-motion</code> via a shared <code style="font-family:var(--mono);font-size:12px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px">useReducedMotion()</code> hook.</div>
+
+    <div class="anim-card">
+      <div class="anim-header">
+        <span class="anim-name">01 · Hero Character Stagger</span>
+        <span class="anim-tag tag-motion">Framer Motion</span>
+      </div>
+      <div class="anim-code">// Split name into characters, stagger each
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.04, delayChildren: 0.3 }
+  }
+}
+const char = {
+  hidden: { y: 60, opacity: 0 },
+  visible: {
+    y: 0, opacity: 1,
+    transition: { type: "spring", stiffness: 200, damping: 20 }
+  }
+}</div>
+      <div class="anim-desc">Applied to the hero h1. Each character is wrapped in a span and animated independently. Spring physics (not ease curves) give the letters weight and personality. Fire on mount, not on scroll.</div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-header">
+        <span class="anim-name">02 · Scroll-Triggered Section Reveal</span>
+        <span class="anim-tag tag-scroll">Scroll Trigger</span>
+      </div>
+      <div class="anim-code">// Reusable hook — useReveal.ts
+export const revealVariants = {
+  hidden: { opacity: 0, y: 32, filter: "blur(4px)" },
+  visible: {
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+  }
+}
+// Usage in any section component:
+const ref = useRef(null)
+const inView = useInView(ref, { once: true, margin: "-100px" })
+&lt;motion.div ref={ref} variants={revealVariants}
+  initial="hidden" animate={inView ? "visible" : "hidden"}&gt;</div>
+      <div class="anim-desc">The ease curve [0.16, 1, 0.3, 1] is a custom expo-out that feels expensive. The blur-to-sharp adds perceived depth. Use once:true so reveals don't repeat on scroll-back.</div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-header">
+        <span class="anim-name">03 · Bento Grid Stagger</span>
+        <span class="anim-tag tag-motion">Framer Motion</span>
+      </div>
+      <div class="anim-code">// Project cards stagger in reading order
+const bentoContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } }
+}
+const bentoItem = {
+  hidden: { opacity: 0, scale: 0.96, y: 20 },
+  visible: {
+    opacity: 1, scale: 1, y: 0,
+    transition: { type: "spring", stiffness: 260, damping: 25 }
+  }
+}</div>
+      <div class="anim-desc">Scale from 0.96 (not 0) prevents a jarring "pop in" while still telegraphing motion. The stagger delay of 80ms feels natural without being slow.</div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-header">
+        <span class="anim-name">04 · Parallax Hero Grid</span>
+        <span class="anim-tag tag-motion">Framer Motion</span>
+      </div>
+      <div class="anim-code">// Background grid scrolls at 0.4× speed
+const { scrollY } = useScroll()
+const gridY = useTransform(scrollY, [0, 800], [0, -320])
+const gridOpacity = useTransform(scrollY, [0, 600], [1, 0])
+
+&lt;motion.div style={{ y: gridY, opacity: gridOpacity }}
+  className="absolute inset-0 pointer-events-none"&gt;
+  &lt;BackgroundGrid ... /&gt; {/* Aceternity */}
+&lt;/motion.div&gt;</div>
+      <div class="anim-desc">Fades out the grid as the user scrolls, so it doesn't compete with content below. useTransform creates a spring-less, frame-perfect transform tied to scroll position.</div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-header">
+        <span class="anim-name">05 · Page Transition</span>
+        <span class="anim-tag tag-motion">Framer Motion</span>
+      </div>
+      <div class="anim-code">// app/layout.tsx — wrap children in AnimatePresence
+// components/PageTransition.tsx
+export default function PageTransition({ children }) {
+  return (
+    &lt;motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.25, ease: "easeInOut" }}&gt;
+      {children}
+    &lt;/motion.div&gt;
+  )
+}</div>
+      <div class="anim-desc">Subtle y-offset cross-fade between routes. Fast (250ms) — page transitions that are longer than 300ms feel broken. Wrap only the main content, not the nav.</div>
+    </div>
+
+    <div class="anim-card">
+      <div class="anim-header">
+        <span class="anim-name">06 · Cursor Magnetic Effect (Nav + CTAs)</span>
+        <span class="anim-tag tag-motion">Framer Motion</span>
+      </div>
+      <div class="anim-code">// useMagnetic.ts — attach to any button
+export function useMagnetic(strength = 0.4) {
+  const x = useMotionValue(0), y = useMotionValue(0)
+  const springX = useSpring(x, { stiffness: 300, damping: 20 })
+  const springY = useSpring(y, { stiffness: 300, damping: 20 })
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    x.set((e.clientX - rect.left - rect.width/2) * strength)
+    y.set((e.clientY - rect.top - rect.height/2) * strength)
+  }
+  return { x: springX, y: springY, handleMouseMove,
+           handleMouseLeave: () => { x.set(0); y.set(0) } }
+}</div>
+      <div class="anim-desc">Apply to the primary CTA and nav links only. Not every button — magnetic effects lose impact through overuse. spring() gives the satisfying snap-back on leave.</div>
+    </div>
+  </div>
+
+  <!-- S6: Component Mapping -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">Component Mapping</span>
+    </div>
+
+    <div class="body-text" style="margin-bottom:1rem">Exact mapping of UI moments to library components. Never install a new library for something already covered by this stack.</div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:13px;">
+      <thead>
+        <tr style="border-bottom:0.5px solid var(--color-border-secondary)">
+          <th style="text-align:left;padding:8px 12px 8px 0;font-weight:500;color:var(--color-text-secondary);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">UI Moment</th>
+          <th style="text-align:left;padding:8px 12px;font-weight:500;color:var(--color-text-secondary);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Library</th>
+          <th style="text-align:left;padding:8px 0 8px 12px;font-weight:500;color:var(--color-text-secondary);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Component</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Hero background depth</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#A78BFA">Aceternity</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">BackgroundBeams / GridPattern</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Metrics counter animation</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#A78BFA">Aceternity</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">NumberTicker</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Project card hover glow</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#A78BFA">Aceternity</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">CardSpotlight</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Tech stack marquee</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#A78BFA">Aceternity</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">InfiniteMovingCards</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Contact CTA heading</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#A78BFA">Aceternity</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">FlipWords</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Section reveal text</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#A78BFA">Aceternity</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">TextRevealCard</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Arsenal filter tabs</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#6EE7B7">Shadcn</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">Tabs + custom dark variant</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Copy email feedback</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#6EE7B7">Shadcn</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">Toast (Sonner variant)</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Philosophy cards</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#6EE7B7">Shadcn</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">Card + CardContent</td>
+        </tr>
+        <tr style="border-bottom:0.5px solid var(--color-border-tertiary)">
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">Project case study sidebar</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#6EE7B7">Shadcn</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">Separator + Badge</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 12px 8px 0;color:var(--color-text-secondary)">All motion + physics</td>
+          <td style="padding:8px 12px;font-family:var(--mono);font-size:11px;color:#FCD34D">Framer</td>
+          <td style="padding:8px 0 8px 12px;font-family:var(--mono);font-size:11px">motion.*, useScroll, useTransform, useSpring</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- S7: Performance -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <span class="section-title">Performance Architecture</span>
+    </div>
+
+    <div class="body-text" style="margin-bottom:1.25rem">High-end visual effects and sub-90 LCP are not mutually exclusive. The strategy is containment: every expensive effect is isolated in a client component, leaving the surrounding tree as static RSC.</div>
+
+    <div class="perf-grid">
+      <div class="perf-card">
+        <div class="perf-card-title"><i class="ti ti-bolt" aria-hidden="true" style="font-size:16px;color:#A78BFA"></i> Server-First RSC Split</div>
+        <div class="perf-card-body">Mark only Aceternity and motion components as <code style="font-family:var(--mono);font-size:11px">'use client'</code>. All text content, metadata, and layout shells are RSC. Framer Motion and Aceternity ship zero JS to the server bundle.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-card-title"><i class="ti ti-package" aria-hidden="true" style="font-size:16px;color:#A78BFA"></i> Dynamic Import Boundaries</div>
+        <div class="perf-card-body">Wrap heavy Aceternity components in <code style="font-family:var(--mono);font-size:11px">next/dynamic</code> with <code style="font-family:var(--mono);font-size:11px">ssr:false</code>. BackgroundBeams and particle effects do not block the hero paint.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-card-title"><i class="ti ti-photo" aria-hidden="true" style="font-size:16px;color:#A78BFA"></i> Image Strategy</div>
+        <div class="perf-card-body">All project thumbnails via <code style="font-family:var(--mono);font-size:11px">next/image</code> with <code style="font-family:var(--mono);font-size:11px">sizes</code> prop tuned to bento grid breakpoints. Use <code style="font-family:var(--mono);font-size:11px">priority</code> only on the hero image (if any).</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-card-title"><i class="ti ti-layers-intersect" aria-hidden="true" style="font-size:16px;color:#A78BFA"></i> CSS Containment</div>
+        <div class="perf-card-body">Apply <code style="font-family:var(--mono);font-size:11px">contain: layout style paint</code> to each section. Prevents scroll-triggered animations from triggering full-page reflows. Critical for parallax.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-card-title"><i class="ti ti-cpu" aria-hidden="true" style="font-size:16px;color:#A78BFA"></i> will-change Discipline</div>
+        <div class="perf-card-body">Only set <code style="font-family:var(--mono);font-size:11px">will-change: transform</code> during an active animation. Use Framer Motion's <code style="font-family:var(--mono);font-size:11px">whileHover</code> / <code style="font-family:var(--mono);font-size:11px">whileInView</code> — it manages this automatically.</div>
+      </div>
+      <div class="perf-card">
+        <div class="perf-card-title"><i class="ti ti-brand-tailwind" aria-hidden="true" style="font-size:16px;color:#A78BFA"></i> Tailwind v4 Optimization</div>
+        <div class="perf-card-body">Use the <code style="font-family:var(--mono);font-size:11px">@layer</code> cascade correctly. Define motion variants as CSS custom properties in <code style="font-family:var(--mono);font-size:11px">@theme</code>. Avoid <code style="font-family:var(--mono);font-size:11px">@apply</code> in hot paths.</div>
+      </div>
+    </div>
+
+    <div class="callout">Target metrics: LCP &lt; 1.2s on 4G, CLS = 0 (reserve space for all animated elements), INP &lt; 100ms. Run Lighthouse CI in your GitHub Actions pipeline against every PR that touches a section component.</div>
+  </div>
+
+  <!-- S8: Roadmap -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <span class="section-title">Implementation Roadmap</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Phase 1 · Foundation (Days 1–3)</div>
+      <div class="anim-code">✓ Install Geist + JetBrains Mono via next/font
+✓ Define full token system in globals.css (@theme block)
+✓ Build useReveal(), useReducedMotion(), useMagnetic() hooks
+✓ Create PageTransition wrapper in app/layout.tsx
+✓ Set up dark-mode-first Tailwind config (no light mode toggle)</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Phase 2 · Hero + Nav (Days 4–6)</div>
+      <div class="anim-code">✓ Build asymmetric hero with CSS grid-template-areas
+✓ Implement character-stagger animation on h1
+✓ Integrate Aceternity BackgroundBeams (dynamic import, ssr:false)
+✓ Add parallax scroll transform to grid overlay
+✓ Build floating terminal-style status card
+✓ Tech stack marquee (InfiniteMovingCards)</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Phase 3 · Core Sections (Days 7–12)</div>
+      <div class="anim-code">✓ PhilosophySection — manifesto + 3-card layout
+✓ ProjectsSection — bento grid + CardSpotlight
+✓ ArsenalSection — InfiniteMovingCards + filtered grid
+✓ ContactSection — FlipWords + availability badge
+✓ All scroll-triggered reveals via useReveal hook</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Phase 4 · Deep Dives + Polish (Days 13–16)</div>
+      <div class="anim-code">✓ /projects/[slug] — two-column case study layout
+✓ generateStaticParams for all project slugs
+✓ WritingSection (if applicable)
+✓ Magnetic effect on nav links + primary CTAs
+✓ Lighthouse CI baseline + fix any CLS issues
+✓ OG image generation via next/og for all routes</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="subsection">
+      <div class="subsection-title">The Single Most Important Decision</div>
+      <div class="body-text">The portfolio needs one moment that stops someone mid-scroll and makes them show a colleague. That moment is the hero character stagger combined with the parallax grid. Everything else supports it. Do not let scope creep dilute this — build the hero to 100% of spec before touching any other section. A flawless hero with an unfinished arsenal section still gets you interviews. The reverse does not.</div>
+    </div>
+  </div>
+</div>
