@@ -211,3 +211,21 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgba(255,255,255,0.1)'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
   }
 }
+
+/* ─── Performance: skip layout/paint for off-screen sections until near-viewport ─── */
+section[id]:not(#work) {
+  content-visibility: auto;
+  /* Reserve approx section height to prevent layout shift when it becomes visible */
+  contain-intrinsic-size: auto 600px;
+}
+
+/* ─── Reduce motion: disable all non-essential animations ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

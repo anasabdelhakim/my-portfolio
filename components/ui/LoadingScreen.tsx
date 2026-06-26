@@ -1,12 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FlipFadeText } from "./flip-fade-text";
 import NumberTicker from "./number-ticker";
 
 export const LoadingScreen = () => {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -18,7 +18,7 @@ export const LoadingScreen = () => {
         </div>
         <div className="flex flex-col items-center gap-3 w-full sm:max-w-[350px] max-w-[280px]">
           <div className="h-2.5 w-full bg-neutral-800 rounded-full overflow-hidden relative">
-            <motion.div 
+            <m.div 
               initial={{ width: "0%" }}
               animate={{ width: "100%" }}
               transition={{ duration: 2.5, ease: "easeInOut" }}
@@ -30,6 +30,6 @@ export const LoadingScreen = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };

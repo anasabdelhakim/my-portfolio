@@ -4,20 +4,40 @@ import { ThemeProvider } from "@teispace/next-themes";
 import { getTheme, getThemeScript } from "@teispace/next-themes/server";
 import "./globals.css";
 
-// تحسين: تعريف الخطوط خارج الـ Layout يقلل من إعادة تنفيذ الكود
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  weight: ["400", "500"],
+});
 
 const themeConfig = {
   attribute: "class",
   defaultTheme: "dark",
   enableSystem: true,
-  disableTransitionOnChange: false,
-};
+  disableTransitionOnChange: true,
+} as const;
 
 export const metadata: Metadata = {
-  title: "Anas Abdelhakim | Software Engineer",
-  description: "Full-Stack Developer focused on high-performance architectures.",
+  title: "Anas Abdelhakim | Full-Stack Software Engineer",
+  description:
+    "Full-Stack & Backend Engineer specializing in high-performance architectures, Clean Architecture patterns, and seamless system integrations.",
+  keywords: ["Full-Stack Engineer", "Backend Engineer", "Next.js", "NestJS", "TypeScript", "React"],
+  authors: [{ name: "Anas Abdelhakim" }],
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: "Anas Abdelhakim | Full-Stack Software Engineer",
+    description: "Full-Stack & Backend Engineer — high-performance architectures, Clean Architecture, system integrations.",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 export default async function RootLayout({
@@ -26,16 +46,20 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const initialTheme = await getTheme();
-  const themeScript = getThemeScript({ ...themeConfig, initialTheme });
+  const themeScript  = getThemeScript({ ...themeConfig, initialTheme });
 
   return (
-    // suppressHydrationWarning ضرورية جداً بسبب تغيير الـ class الخاص بالثيم في الـ html tag
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* ─── Block-zero theme script prevents FOUC ─── */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* ─── Preconnect to external image origin so DNS+TLS is resolved before hero image fetch ─── */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground`}>
-        {/* نضع الـ Provider في أعلى مستوى لتوفير السياق */}
+      <body
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground`}
+      >
         <ThemeProvider {...themeConfig} initialTheme={initialTheme ?? undefined}>
           {children}
         </ThemeProvider>

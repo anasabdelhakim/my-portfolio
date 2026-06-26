@@ -1,8 +1,23 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+// ─── Static animation config — defined once, not per-render ───
+const headerVariants = {
+  hidden:  { opacity: 0, y: 20, filter: "blur(2px)" },
+  visible: { opacity: 1, y:  0, filter: "blur(0px)" },
+} as const;
+
+const contentVariants = {
+  hidden:  { opacity: 0, y: 20 },
+  visible: { opacity: 1, y:  0 },
+} as const;
+
+const fastTransition  = { duration: 0.4, ease: "easeOut" } as const;
+const contentDelay    = { duration: 0.4, delay: 0.1, ease: "easeOut" } as const;
+const viewportOptions = { once: true, amount: 0.1 } as const; // once: true — no wasted repaints on re-scroll
 
 interface SectionWrapperProps {
   id: string;
@@ -24,6 +39,7 @@ export function SectionWrapper({
   headerClassName = "mb-10 lg:mb-14",
 }: SectionWrapperProps) {
   return (
+    // LazyMotion propagated from root page — no second feature bundle loaded here
     <section
       id={id}
       className={cn(
@@ -32,14 +48,15 @@ export function SectionWrapper({
       )}
     >
       <div className="max-w-[1500px] w-full mx-auto px-3 lg:px-16">
-        
-        {/* ─── Animated Section Header (Fast & Snappy) ─── */}
+
+        {/* ─── Animated Section Header ─── */}
         <div className={cn("flex flex-col items-center text-center", headerClassName)}>
-          <motion.div
-            initial={{ opacity: 0, y: 20, filter: "blur(2px)" }} // تقليل المسافة والبلور لسرعة الأداء
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: false, amount: 0.1 }} // تبدأ الحركة مبكراً فور ظهور القسم
-            transition={{ duration: 0.4, ease: "easeOut" }} // مدة سريعة ومتناسقة
+          <m.div
+            variants={headerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOptions}
+            transition={fastTransition}
           >
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-[1px] w-6 bg-purple-500/50" />
@@ -54,18 +71,19 @@ export function SectionWrapper({
                 <span className="text-muted-foreground">{titleHighlight}</span>
               )}
             </h2>
-          </motion.div>
+          </m.div>
         </div>
 
-        {/* ─── Section Content (Fast & Snappy) ─── */}
-        <motion.div
-            initial={{ opacity: 0, y: 20 }} // تقليل مسافة الطلوع لعدم الإحساس بالبطء
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.1 }}
-            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }} // التأخير خفيف جداً (0.1) ليعمل تتابع سريع
+        {/* ─── Section Content ─── */}
+        <m.div
+          variants={contentVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOptions}
+          transition={contentDelay}
         >
-            {children}
-        </motion.div>
+          {children}
+        </m.div>
 
       </div>
     </section>
