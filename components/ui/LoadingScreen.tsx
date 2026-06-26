@@ -13,10 +13,10 @@ export const LoadingScreen = () => {
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#09090B]"
     >
       <div className="flex flex-col items-center w-full px-6">
-        <div className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
+        <div className="text-5xl md:text-6xl font-bold tracking-tighter text-white">
           <FlipFadeText text="Anas Abdelhakim" />
         </div>
-        <div className="flex flex-col items-center gap-3 w-full max-w-[350px]">
+        <div className="flex flex-col items-center gap-3 w-full sm:max-w-[350px] max-w-[280px]">
           <div className="h-2.5 w-full bg-neutral-800 rounded-full overflow-hidden relative">
             <motion.div 
               initial={{ width: "0%" }}

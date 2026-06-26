@@ -88,7 +88,7 @@ export function Hero() {
               Anas Abdelhakim
             </motion.h2>
             
-            <div className="text-6xl  sm:text-[90px] lg:text-[120px] font-bold leading-[0.85] lg:leading-[0.95] tracking-[-0.04em] text-foreground flex flex-col items-center lg:items-start mt-2">
+            <div className="text-[68px] sm:text-[90px] lg:text-[120px] font-bold leading-[0.85] lg:leading-[0.95] tracking-[-0.04em] text-foreground flex flex-col items-center lg:items-start mt-2">
                <AnimatedTitle text="Full-Stack" className="justify-center lg:justify-start" />
                <AnimatedTitle text="Engineer." className="text-purple-500/90 dark:text-purple-400 justify-center lg:justify-start" />
             </div>
