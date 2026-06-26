@@ -10,8 +10,8 @@ interface SectionWrapperProps {
   titleMain: string;
   titleHighlight?: string;
   children: ReactNode;
-  className?: string; // لتعديل مسافات القسم الخارجي إذا لزم الأمر
-  headerClassName?: string; // لتعديل مسافات العنوان
+  className?: string;
+  headerClassName?: string;
 }
 
 export function SectionWrapper({
@@ -33,13 +33,13 @@ export function SectionWrapper({
     >
       <div className="max-w-[1500px] w-full mx-auto px-3 lg:px-16">
         
-        {/* ─── Animated Section Header ─── */}
+        {/* ─── Animated Section Header (Fast & Snappy) ─── */}
         <div className={cn("flex flex-col items-center text-center", headerClassName)}>
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 20, filter: "blur(2px)" }} // تقليل المسافة والبلور لسرعة الأداء
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: false, amount: 0.1 }} // تبدأ الحركة مبكراً فور ظهور القسم
+            transition={{ duration: 0.4, ease: "easeOut" }} // مدة سريعة ومتناسقة
           >
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="h-[1px] w-6 bg-purple-500/50" />
@@ -56,7 +56,16 @@ export function SectionWrapper({
             </h2>
           </motion.div>
         </div>
-        {children}
+
+        {/* ─── Section Content (Fast & Snappy) ─── */}
+        <motion.div
+            initial={{ opacity: 0, y: 20 }} // تقليل مسافة الطلوع لعدم الإحساس بالبطء
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }} // التأخير خفيف جداً (0.1) ليعمل تتابع سريع
+        >
+            {children}
+        </motion.div>
 
       </div>
     </section>
