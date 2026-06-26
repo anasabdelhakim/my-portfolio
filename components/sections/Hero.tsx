@@ -115,12 +115,13 @@ export function Hero() {
                 <span className="text-sm font-medium text-white whitespace-pre-wrap">View My Work</span>
               </ShimmerButton>
             </div>
-            
-           <a href="/cv.pdf" download className="w-full sm:w-auto group relative flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-foreground text-[13px] uppercase tracking-[1.5px] transition-all duration-300 ease-out 
-           hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] 
-           active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10">
+            <a 
+              href="/Anas_Cv.pdf" 
+              download="Anas_Abdelhakim_CV.pdf" 
+              className="w-full sm:w-auto group relative flex items-center justify-center gap-2 h-12 px-8 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-foreground text-[13px] uppercase tracking-[1.5px] transition-all duration-300 ease-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
+            >
               <span>Download CV</span>
-           </a>
+            </a>
           </motion.div>
 
           <motion.div 

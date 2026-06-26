@@ -3,47 +3,22 @@
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { MouseEvent } from "react";
+import { SectionWrapper } from "../section-wrapper";
 
+// ─── Icons & Data ───
+// تم تكبير الأيقونات لتكون 7x7 على الموبايل، وترجع 5x5 على الديسكتوب
 const Icons = {
-  Architecture: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>
-  ),
-  Runtime: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-  ),
-  Database: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
-  ),
-  Scale: () => (
-    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
-  ),
+  Architecture: () => <svg className="w-7 h-7 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>,
+  Runtime: () => <svg className="w-7 h-7 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+  Database: () => <svg className="w-7 h-7 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>,
+  Scale: () => <svg className="w-7 h-7 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
 };
 
 const philosophyItems = [
-  {
-    title: "Clean Architecture",
-    description: "Frameworks are ephemeral; business logic is sacred. Decoupling core logic ensures systems remain testable.",
-    icon: <Icons.Architecture />,
-    className: "lg:col-span-2", 
-  },
-  {
-    title: "Runtime Obsession",
-    description: "Maximizing throughput and minimizing latency using modern high-performance engines.",
-    icon: <Icons.Runtime />,
-    className: "lg:col-span-1",
-  },
-  {
-    title: "Data Precision",
-    description: "Strict Data Access Layers (DAL) with optimized indexing to prevent bottlenecks at scale.",
-    icon: <Icons.Database />,
-    className: "lg:col-span-1",
-  },
-  {
-    title: "Pragmatic Scaling",
-    description: "Designing modular monoliths that evolve seamlessly into distributed microservices when required.",
-    icon: <Icons.Scale />,
-    className: "lg:col-span-2",
-  },
+  { title: "Clean Architecture", description: "Frameworks are ephemeral; business logic is sacred. Decoupling core logic ensures systems remain testable.", icon: <Icons.Architecture />, className: "lg:col-span-2" },
+  { title: "Runtime Obsession", description: "Maximizing throughput and minimizing latency using modern high-performance engines.", icon: <Icons.Runtime />, className: "lg:col-span-1" },
+  { title: "Data Precision", description: "Strict Data Access Layers (DAL) with optimized indexing to prevent bottlenecks at scale.", icon: <Icons.Database />, className: "lg:col-span-1" },
+  { title: "Pragmatic Scaling", description: "Designing modular monoliths that evolve seamlessly into distributed microservices when required.", icon: <Icons.Scale />, className: "lg:col-span-2" },
 ];
 
 function SpotlightCard({ item, index }: { item: typeof philosophyItems[0], index: number }) {
@@ -71,31 +46,27 @@ function SpotlightCard({ item, index }: { item: typeof philosophyItems[0], index
         item.className
       )}
     >
+      {/* Mesh Gradients */}
+      <div className="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-50 z-0" />
+      <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-30 z-0" />
+
+      {/* Spotlight Effect */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[1.5rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-[1.5rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
         style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              250px circle at ${mouseX}px ${mouseY}px,
-              rgba(124, 58, 237, 0.08),
-              transparent 80%
-            )
-          `,
+          background: useMotionTemplate`radial-gradient(250px circle at ${mouseX}px ${mouseY}px, rgba(124, 58, 237, 0.12), transparent 80%)`,
         }}
       />
 
-      <div className="relative z-10">
-        <div className="w-11 h-11 rounded-xl bg-purple-500/5 border border-purple-500/10 flex items-center justify-center text-purple-500 group-hover:scale-105 group-hover:bg-purple-500/10 transition-all duration-300 mb-6">
+      {/* ─── Content (تم إضافة التوسيط للموبايل هنا) ─── */}
+      <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left h-full">
+        {/* حاوية الأيقونة أصبحت w-14 h-14 للموبايل و ترجع w-11 h-11 للديسكتوب */}
+        <div className="w-14 h-14 md:w-11 md:h-11 rounded-xl bg-purple-500/5 border border-purple-500/10 flex items-center justify-center text-purple-500 group-hover:scale-105 group-hover:bg-purple-500/10 transition-all duration-300 mb-4 md:mb-6 shadow-sm">
           {item.icon}
         </div>
-        
-        <h3 className="text-lg md:text-xl font-semibold mb-2 tracking-tight transition-colors duration-300">
-          {item.title}
-        </h3>
-        
-        <p className="text-sm text-muted-foreground leading-relaxed max-w-[95%] transition-colors duration-300">
-          {item.description}
-        </p>
+        <h3 className="text-xl md:text-xl font-semibold mb-2 tracking-tight transition-colors duration-300">{item.title}</h3>
+        {/* أضفنا mx-auto لضمان توسط مساحة النص على الموبايل */}
+        <p className="text-sm text-muted-foreground leading-relaxed max-w-[100%] md:max-w-[95%] mx-auto md:mx-0 transition-colors duration-300">{item.description}</p>
       </div>
     </motion.div>
   );
@@ -103,34 +74,17 @@ function SpotlightCard({ item, index }: { item: typeof philosophyItems[0], index
 
 export function Philosophy() {
   return (
-    <section id="philosophy" className="relative py-16 lg:py-24 overflow-hidden border-t border-border/50 bg-background">
-      <div className="max-w-[1500px] w-full mx-auto px-3 lg:px-16">
-        
-        <div className="flex flex-col items-center text-center mb-12 lg:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-[1px] w-6 bg-purple-500/50" />
-              <span className="text-purple-500 font-mono text-xs tracking-widest uppercase">Philosophy</span>
-              <div className="h-[1px] w-6 bg-purple-500/50" />
-            </div>
-            <h2 className="text-[28px] md:text-[40px] font-bold tracking-tight text-foreground">
-              Engineering <span className="text-muted-foreground">Principles</span>
-            </h2>
-          </motion.div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
-          {philosophyItems.map((item, index) => (
-            <SpotlightCard key={item.title} item={item} index={index} />
-          ))}
-        </div>
-
+    <SectionWrapper
+      id="philosophy"
+      subtitle="02 / Philosophy" 
+      titleMain="Engineering"
+      titleHighlight="Principles"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {philosophyItems.map((item, index) => (
+          <SpotlightCard key={item.title} item={item} index={index} />
+        ))}
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

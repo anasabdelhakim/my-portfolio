@@ -26,7 +26,7 @@ export function Nav() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className="fixed top-0 w-full z-50 py-4 pointer-events-none flex justify-center" 
+      className="fixed top-0 w-full z-50 py-2 sm:py-4 pointer-events-none flex justify-center" 
     >
       <motion.div 
         initial={{
