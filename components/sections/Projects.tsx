@@ -25,7 +25,7 @@ const GlobeIcon = () => (
 const projects = [
   {
     title: "NeuroMeet",
-    description: "AI-powered e-learning engagement detection platform with real-time video analytics, custom WebRTC integrations, and instructor dashboards.",
+    description: "A fullstack AI-powered e-learning engagement detection platform with real-time video analytics, custom WebRTC integrations, and instructor dashboards.",
     image: "/neuromeet.avif",
     technologies: ["Next.js 16", "NestJS", "Fastify", "LiveKit WebRTC", "Prisma v7", "PostgreSQL", "Python AI Agent", "PyTorch", "OpenCV", "Docker", "Bun"],
     live: "https://neuromeet.anasdev.shop",
