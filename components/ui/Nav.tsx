@@ -101,13 +101,15 @@ export function Nav() {
         </div>
 
         {/* Nav links */}
-        <ul className="hidden md:flex items-center gap-1">
+        <ul
+          className="hidden md:flex items-center gap-1"
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
           {navLinks.map((link, i) => (
             <li
               key={link.href}
               className="relative"
               onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
             >
               <a
                 href={link.href}

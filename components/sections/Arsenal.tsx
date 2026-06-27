@@ -11,10 +11,10 @@ type Category = (typeof categories)[number];
 
 const skills = [
   { name: "NestJS",       category: "Backend & Core",   desc: "Enterprise scalable architecture"    },
+  { name: "Next.js",      category: "Frontend",         desc: "App Router & Server Components"       },
+  { name: "Node.js",      category: "Backend & Core",   desc: "V8 engine optimizations"              },
   { name: "Bun",          category: "Backend & Core",   desc: "Ultra-fast runtime & edge computing"  },
   { name: "Fastify",      category: "Backend & Core",   desc: "High-throughput APIs"                 },
-  { name: "Node.js",      category: "Backend & Core",   desc: "V8 engine optimizations"              },
-  { name: "Next.js",      category: "Frontend",         desc: "App Router & Server Components"       },
   { name: "React",        category: "Frontend",         desc: "Concurrent features & Hooks"          },
   { name: "Tailwind CSS", category: "Frontend",         desc: "Design system architecture"           },
   { name: "Shadcn UI",    category: "Frontend",         desc: "Accessible headless architecture"     },
