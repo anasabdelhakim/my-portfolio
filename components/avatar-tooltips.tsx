@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, useTransform, useMotionValue, useSpring, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export type AvatarItem = {
   readonly id: string | number;
@@ -68,11 +69,14 @@ const AvatarTooltipItem = ({ item }: { item: AvatarItem }) => {
       </AnimatePresence>
 
       <div className="relative flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-border bg-background shadow-sm transition-transform duration-300 group-hover:z-30 group-hover:scale-110 active:scale-95">
-<img 
-  src={item.icon} 
-  alt={item.name} 
-  className="h-full w-full object-cover rounded-full" 
-/>      </div>
+        <Image 
+          src={item.icon} 
+          alt={item.name}
+          width={48}
+          height={48}
+          className="h-full w-full object-cover rounded-full" 
+        />
+      </div>
     </div>
   );
 };

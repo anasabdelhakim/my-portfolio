@@ -1,9 +1,10 @@
 "use client";
 
 import { m } from "framer-motion";
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useCallback } from "react";
 import { ShimmerButton } from "../ui/shimmer-button";
 import { Marquee } from "../ui/marquee";
+import Link from "next/link";
 import Image from "next/image";
 
 // ─── Shared transition (defined once, not recreated per render) ───
@@ -84,6 +85,15 @@ export function Hero() {
     setMounted(true);
   }, []);
 
+  const handleScroll = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const elem = document.getElementById("projects");
+    if (elem) {
+      const offsetPosition = elem.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      window.history.pushState(null, "", "#projects");
+    }
+  }, []);
 
   if (!mounted) return null;
 
@@ -143,11 +153,13 @@ export function Hero() {
           >
             {/* Wrapper uses CSS transition (no JS/Framer overhead) */}
             <div className="w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-transform duration-300 ease-out z-10">
-              <ShimmerButton className="shadow-2xl h-12 px-8 w-full sm:w-auto">
-                <span className="text-sm font-medium text-white whitespace-pre-wrap">
-                  View My Work
-                </span>
-              </ShimmerButton>
+              <Link href="#projects" onClick={handleScroll} className="w-full sm:w-auto block">
+                <ShimmerButton className="shadow-2xl h-12 px-8 w-full sm:w-auto">
+                  <span className="text-sm font-medium text-white whitespace-pre-wrap">
+                    View My Work
+                  </span>
+                </ShimmerButton>
+              </Link>
             </div>
 
             <a

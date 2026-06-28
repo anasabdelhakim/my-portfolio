@@ -4,6 +4,7 @@ import { m, useScroll, useMotionValueEvent } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useState, useCallback, memo } from "react";
 import { ThemeToggler } from "../theme-toggler";
+import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
@@ -53,6 +54,7 @@ export function Nav() {
       if (elem) {
         const offsetPosition = elem.getBoundingClientRect().top + window.scrollY - 100;
         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        window.history.pushState(null, "", href);
       }
     },
     []
@@ -91,13 +93,13 @@ export function Nav() {
         {/* Logo */}
         <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity duration-300">
           <NavLogo />
-          <a
-            href="#"
+          <Link
+            href="#work"
             onClick={(e) => handleScroll(e, "#work")}
             className="font-sans text-base font-bold tracking-tight text-foreground transition-colors"
           >
             Anas<span className="text-purple-500">.dev</span>
-          </a>
+          </Link>
         </div>
 
         {/* Nav links */}
@@ -111,7 +113,7 @@ export function Nav() {
               className="relative"
               onMouseEnter={() => setHoveredIndex(i)}
             >
-              <a
+              <Link
                 href={link.href}
                 onClick={(e) => handleScroll(e, link.href)}
                 className={cn(
@@ -120,7 +122,7 @@ export function Nav() {
                 )}
               >
                 {link.label}
-              </a>
+              </Link>
               {hoveredIndex === i && (
                 <m.div
                   layoutId="nav-hover-pill"
@@ -138,13 +140,13 @@ export function Nav() {
         {/* CTA */}
         <div className="flex items-center gap-3 sm:gap-4">
           <ThemeToggler />
-          <a
+          <Link
             href="#contact"
             onClick={(e) => handleScroll(e, "#contact")}
             className="hidden sm:inline-flex h-9 items-center justify-center rounded-full bg-foreground px-5 text-sm font-medium text-background transition-transform duration-300 active:scale-95 hover:scale-105"
           >
             Let's Talk
-          </a>
+          </Link>
         </div>
       </m.div>
     </m.nav>
