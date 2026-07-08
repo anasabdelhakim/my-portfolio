@@ -37,7 +37,6 @@ const projects = [
     technologies: ["Angular 19", "TypeScript", "Tailwind CSS", "NgRx", "RxJS", "Zod", "Spartan-ng", "DeepSeek API"],
     live: "https://quiz-mastro-c5vv.vercel.app/index",
     github: "https://github.com/anasabdelhakim/Quiz_Mastro.git",
-    badge: "Featured Project",
   },
   {
     title: "e-plantShopping",
