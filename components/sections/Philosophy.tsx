@@ -61,17 +61,15 @@ const SpotlightCard = memo(function SpotlightCard({
         item.className
       )}
     >
-      {}
+
       <div className="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-50 z-0" />
       <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-30 z-0" />
 
-      {}
       <m.div
         className="pointer-events-none absolute -inset-px rounded-[1.5rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
         style={{ background }}
       />
 
-      {}
       <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left h-full">
         <div className="w-14 h-14 md:w-11 md:h-11 rounded-xl bg-purple-500/5 border border-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500/10 transition-colors duration-300 mb-4 md:mb-6 shadow-sm">
           {item.icon}

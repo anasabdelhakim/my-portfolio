@@ -67,7 +67,7 @@ export function Arsenal() {
       titleMain="Technical"
       titleHighlight="Arsenal"
     >
-      {}
+
       <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
         {categories.map((category) => (
           <button
@@ -91,7 +91,6 @@ export function Arsenal() {
         ))}
       </div>
 
-      {}
       <m.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         <AnimatePresence mode="popLayout">
           {filteredSkills.map((skill) => (

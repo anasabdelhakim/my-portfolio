@@ -76,7 +76,7 @@ export function Nav() {
         transition={innerSpring}
         className="w-full flex items-center justify-between px-4 sm:px-6 pointer-events-auto relative"
       >
-        {}
+
         <m.div
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0 }}
@@ -87,7 +87,6 @@ export function Nav() {
           )}
         />
 
-        {}
         <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity duration-300">
           <NavLogo />
           <Link
@@ -99,7 +98,6 @@ export function Nav() {
           </Link>
         </div>
 
-        {}
         <ul
           className="hidden md:flex items-center gap-1"
           onMouseLeave={() => setHoveredIndex(null)}
@@ -134,7 +132,6 @@ export function Nav() {
           ))}
         </ul>
 
-        {}
         <div className="flex items-center gap-3 sm:gap-4">
           <ThemeToggler />
           <Link

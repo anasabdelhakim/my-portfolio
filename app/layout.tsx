@@ -51,9 +51,9 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {}
+
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {}
+
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>

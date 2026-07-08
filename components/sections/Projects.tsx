@@ -20,7 +20,17 @@ const GlobeIcon = () => (
   </svg>
 );
 
-const projects = [
+type ProjectType = {
+  title: string;
+  description: string;
+  image: string;
+  technologies: readonly string[];
+  live: string;
+  github: string;
+  badge?: string;
+};
+
+const projects: ProjectType[] = [
   {
     title: "NeuroMeet",
     description: "A fullstack AI-powered e-learning engagement detection platform with real-time video analytics, custom WebRTC integrations, and instructor dashboards.",
@@ -62,7 +72,7 @@ const projects = [
     live: "https://world-wise-three-rho.vercel.app/",
     github: "https://github.com/anasabdelhakim/World-Wise.git",
   },
-] as const;
+];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -75,7 +85,7 @@ const cardVariants = {
 
 const viewportOptions = { once: true, margin: "-50px" } as const;
 
-const ProjectCard = memo(function ProjectCard({ project, index }: { project: (typeof projects)[number]; index: number }) {
+const ProjectCard = memo(function ProjectCard({ project, index }: { project: ProjectType; index: number }) {
   const [showmore, setShowmore] = useState(false);
 
   return (
@@ -85,10 +95,9 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
       initial="hidden"
       whileInView="visible"
       viewport={viewportOptions}
-      className="group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-border/50 bg-gradient-to-b from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:scale-[1.02] hover:shadow-[0_10px_35px_rgba(124,58,237,0.12)] transition-all duration-500 ease-out"
+      className="group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-border/50 bg-gradient-to-b from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out"
     >
-      {}
-      <div className="relative w-full aspect-video overflow-hidden bg-muted/30 border-b border-border/50">
+      <div className="relative w-full aspect-video overflow-hidden bg-muted/30 transform-gpu isolate">
         {project.badge && (
           <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-[11px] font-semibold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.2)]">
             {project.badge}
@@ -99,13 +108,10 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className="object-cover"
         />
-        {}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80 z-10 pointer-events-none" />
       </div>
-
-      {}
       <div className="relative z-20 flex flex-col flex-1 p-6 sm:p-7 justify-between gap-6">
         <div>
           <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground transition-colors duration-300 mb-3">
@@ -133,7 +139,6 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
           </p>
         </div>
 
-        {}
         <div className="flex flex-wrap gap-1.5 py-1">
           {project.technologies.map((tech) => (
             <span
@@ -145,27 +150,25 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
           ))}
         </div>
 
-        {}
         <div className="flex items-center gap-3 mt-2 pt-4 border-t border-border/40 flex-wrap">
-          {}
+
           {project.live && (
             <a
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full bg-[#7C3AED] border border-[#7C3AED] text-white text-[11px] uppercase tracking-[1px] hover:tracking-[2px] hover:bg-purple-600 hover:border-purple-600 hover:shadow-[0_5px_15px_0_rgba(124,58,237,0.4)] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full bg-[#7C3AED] border border-[#7C3AED] text-white text-[11px] uppercase tracking-[1px] hover:bg-purple-600 hover:border-purple-600 hover:shadow-[0_5px_15px_0_rgba(124,58,237,0.4)] active:scale-[0.99] transition-all duration-300 ease-out z-10"
             >
               <GlobeIcon />
               <span>Live Demo</span>
             </a>
           )}
 
-          {}
           <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] uppercase tracking-[1px] hover:tracking-[2px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
           >
             <GithubIcon />
             <span>Code</span>

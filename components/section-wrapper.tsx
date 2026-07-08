@@ -48,7 +48,6 @@ export function SectionWrapper({
     >
       <div className="max-w-[1500px] w-full mx-auto px-3 lg:px-16">
 
-        {}
         <div className={cn("flex flex-col items-center text-center", headerClassName)}>
           <m.div
             variants={headerVariants}
@@ -73,7 +72,6 @@ export function SectionWrapper({
           </m.div>
         </div>
 
-        {}
         <m.div
           variants={contentVariants}
           initial="hidden"
