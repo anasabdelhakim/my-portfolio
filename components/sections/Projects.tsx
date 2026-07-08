@@ -99,7 +99,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
     >
       <div className="relative w-full aspect-video overflow-hidden bg-muted/30 transform-gpu isolate">
         {project.badge && (
-          <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-[11px] font-semibold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.2)]">
+          <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-500 text-[11px] font-semibold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.2)]">
             {project.badge}
           </div>
         )}
@@ -143,7 +143,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
           {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="border border-purple-500/20 bg-purple-500/10 rounded-full px-3 py-1 text-[11px] font-medium text-purple-300 tracking-wide font-mono shadow-[0_0_10px_rgba(124,58,237,0.05)]"
+              className="border border-purple-500/20 bg-purple-500/10 rounded-full px-3 py-1 text-[11px] font-medium text-purple-500 tracking-wide font-mono shadow-[0_0_10px_rgba(124,58,237,0.05)]"
             >
               {tech}
             </span>
@@ -157,7 +157,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full bg-[#7C3AED] border border-[#7C3AED] text-white text-[11px] uppercase tracking-[1px] hover:bg-purple-600 hover:border-purple-600 hover:shadow-[0_5px_15px_0_rgba(124,58,237,0.4)] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border-2 border-border backdrop-blur-md text-foreground text-[11px] uppercase tracking-[1.5px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-500 ease-in-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
             >
               <GlobeIcon />
               <span>Live Demo</span>
@@ -168,7 +168,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border-2 border-border backdrop-blur-md text-foreground text-[11px] uppercase tracking-[1.5px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-500 ease-in-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
           >
             <GithubIcon />
             <span>Code</span>
