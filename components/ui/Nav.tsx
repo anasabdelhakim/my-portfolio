@@ -14,12 +14,10 @@ const navLinks = [
   { href: "#projects",   label: "Systems"    },
 ] as const;
 
-// ─── Static spring configs — not re-created per render ───
 const navSpring    = { type: "spring", stiffness: 100, damping: 20 } as const;
 const innerSpring  = { type: "spring", stiffness: 150, damping: 20, mass: 1 } as const;
 const pillSpring   = { type: "spring", stiffness: 400, damping: 30 } as const;
 
-// ─── Memoized logo image so re-scroll doesn't re-paint it ───
 const NavLogo = memo(function NavLogo() {
   return (
     <div className="relative h-9 w-9 rounded-full overflow-hidden border border-border/50 ring-2 ring-transparent transition-[box-shadow] hover:ring-purple-500/50">
@@ -28,7 +26,7 @@ const NavLogo = memo(function NavLogo() {
         alt="Anas Abdelhakim"
         width={36}
         height={36}
-        // Nav avatar is above-fold but tiny — skip priority to avoid competing with hero image
+        
         className="h-full w-full object-cover"
       />
     </div>
@@ -41,11 +39,10 @@ export function Nav() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    // ─── Threshold hysteresis prevents flicker at boundary ───
+    
     setScrolled((prev) => (latest > 60 ? true : latest < 40 ? false : prev));
   });
 
-  // ─── Stable scroll handler — useCallback prevents re-registering on every render ───
   const handleScroll = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       e.preventDefault();
@@ -79,7 +76,7 @@ export function Nav() {
         transition={innerSpring}
         className="w-full flex items-center justify-between px-4 sm:px-6 pointer-events-auto relative"
       >
-        {/* Backdrop pill */}
+        {}
         <m.div
           initial={false}
           animate={{ opacity: scrolled ? 1 : 0 }}
@@ -90,7 +87,7 @@ export function Nav() {
           )}
         />
 
-        {/* Logo */}
+        {}
         <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity duration-300">
           <NavLogo />
           <Link
@@ -102,7 +99,7 @@ export function Nav() {
           </Link>
         </div>
 
-        {/* Nav links */}
+        {}
         <ul
           className="hidden md:flex items-center gap-1"
           onMouseLeave={() => setHoveredIndex(null)}
@@ -137,7 +134,7 @@ export function Nav() {
           ))}
         </ul>
 
-        {/* CTA */}
+        {}
         <div className="flex items-center gap-3 sm:gap-4">
           <ThemeToggler />
           <Link

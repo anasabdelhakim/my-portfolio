@@ -51,9 +51,9 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* ─── Block-zero theme script prevents FOUC ─── */}
+        {}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {/* ─── Preconnect to external image origin so DNS+TLS is resolved before hero image fetch ─── */}
+        {}
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>

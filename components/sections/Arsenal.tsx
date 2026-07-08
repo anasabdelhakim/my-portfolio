@@ -5,7 +5,6 @@ import { m, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SectionWrapper } from "../section-wrapper";
 
-// ─── Categories & Data ───
 const categories = ["All", "Backend & Core", "Frontend", "Database & Infra"] as const;
 type Category = (typeof categories)[number];
 
@@ -24,7 +23,6 @@ const skills = [
   { name: "Docker",       category: "Database & Infra", desc: "Containerized environments"           },
 ] as const;
 
-// ─── Static animation objects — defined once at module level ───
 const cardVariants = {
   hidden:  { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
@@ -33,7 +31,6 @@ const cardVariants = {
 
 const tabSpringTransition = { type: "spring", stiffness: 400, damping: 30 } as const;
 
-// ─── Memoized SkillCard — re-renders only when skill data changes ───
 const SkillCard = memo(function SkillCard({ skill }: { skill: (typeof skills)[number] }) {
   return (
     <m.div
@@ -59,7 +56,6 @@ const SkillCard = memo(function SkillCard({ skill }: { skill: (typeof skills)[nu
 export function Arsenal() {
   const [activeCategory, setActiveCategory] = useState<Category>("All");
 
-  // ─── Memoized filter — only recomputed when activeCategory changes ───
   const filteredSkills = useMemo(
     () => skills.filter((s) => activeCategory === "All" || s.category === activeCategory),
     [activeCategory]
@@ -71,7 +67,7 @@ export function Arsenal() {
       titleMain="Technical"
       titleHighlight="Arsenal"
     >
-      {/* ─── Filter Tabs ─── */}
+      {}
       <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
         {categories.map((category) => (
           <button
@@ -95,7 +91,7 @@ export function Arsenal() {
         ))}
       </div>
 
-      {/* ─── Skills Grid — layout animation on the wrapper, AnimatePresence for exit ─── */}
+      {}
       <m.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         <AnimatePresence mode="popLayout">
           {filteredSkills.map((skill) => (

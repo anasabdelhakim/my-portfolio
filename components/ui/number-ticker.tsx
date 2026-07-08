@@ -16,11 +16,9 @@ export default function NumberTicker({
   delay?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  
-  // بنحدد البداية بناءً على الاتجاه (لو up يبدأ من 0، لو down يبدأ من الرقم)
+
   const motionValue = useMotionValue(direction === "down" ? value : 0);
-  
-  // إعدادات الـ Physics بتاعة الأنيميشن عشان يبقى ناعم
+
   const springValue = useSpring(motionValue, {
     damping: 60,
     stiffness: 100,
@@ -39,7 +37,7 @@ export default function NumberTicker({
   useEffect(() => {
     return springValue.on("change", (latest) => {
       if (ref.current) {
-        // بنفرمت الرقم عشان لو معدي الألف يحط فاصلة (مثال: 1,000)
+        
         ref.current.textContent = Intl.NumberFormat("en-US").format(
           Number(latest.toFixed(0))
         );

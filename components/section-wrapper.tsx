@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-// ─── Static animation config — defined once, not per-render ───
 const headerVariants = {
   hidden:  { opacity: 0, y: 20, filter: "blur(2px)" },
   visible: { opacity: 1, y:  0, filter: "blur(0px)" },
@@ -17,7 +16,7 @@ const contentVariants = {
 
 const fastTransition  = { duration: 0.4, ease: "easeOut" } as const;
 const contentDelay    = { duration: 0.4, delay: 0.1, ease: "easeOut" } as const;
-const viewportOptions = { once: true, amount: 0.1 } as const; // once: true — no wasted repaints on re-scroll
+const viewportOptions = { once: true, amount: 0.1 } as const; 
 
 interface SectionWrapperProps {
   id: string;
@@ -39,7 +38,7 @@ export function SectionWrapper({
   headerClassName = "mb-10 lg:mb-14",
 }: SectionWrapperProps) {
   return (
-    // LazyMotion propagated from root page — no second feature bundle loaded here
+    
     <section
       id={id}
       className={cn(
@@ -49,7 +48,7 @@ export function SectionWrapper({
     >
       <div className="max-w-[1500px] w-full mx-auto px-3 lg:px-16">
 
-        {/* ─── Animated Section Header ─── */}
+        {}
         <div className={cn("flex flex-col items-center text-center", headerClassName)}>
           <m.div
             variants={headerVariants}
@@ -74,7 +73,7 @@ export function SectionWrapper({
           </m.div>
         </div>
 
-        {/* ─── Section Content ─── */}
+        {}
         <m.div
           variants={contentVariants}
           initial="hidden"

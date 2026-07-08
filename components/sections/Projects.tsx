@@ -5,7 +5,6 @@ import { m } from "framer-motion";
 import Image from "next/image";
 import { SectionWrapper } from "../section-wrapper";
 
-// ─── Inline SVG icons ───
 const GithubIcon = () => (
   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
@@ -21,7 +20,6 @@ const GlobeIcon = () => (
   </svg>
 );
 
-// ─── Static data & variants — defined at module scope ───
 const projects = [
   {
     title: "NeuroMeet",
@@ -39,7 +37,6 @@ const projects = [
     technologies: ["Angular", "TypeScript", "DeepSeek API", "HTML5", "CSS3", "REST APIs"],
     live: "https://quiz-mastro-c5vv.vercel.app/index",
     github: "https://github.com/anasabdelhakim/Quiz_Mastro.git",
-    badge: "Top Project",
   },
   {
     title: "Fuchsia App",
@@ -82,7 +79,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
       viewport={viewportOptions}
       className="group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-border/50 bg-gradient-to-b from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:scale-[1.02] hover:shadow-[0_10px_35px_rgba(124,58,237,0.12)] transition-all duration-500 ease-out"
     >
-      {/* ─── Image Container with Premium Overlay & Hover Zoom ─── */}
+      {}
       <div className="relative w-full aspect-video overflow-hidden bg-muted/30 border-b border-border/50">
         {project.badge && (
           <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-[11px] font-semibold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.2)]">
@@ -96,11 +93,11 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        {/* Premium elegant neutral theme overlay */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500 z-10" />
       </div>
 
-      {/* ─── Card Body ─── */}
+      {}
       <div className="relative z-20 flex flex-col flex-1 p-6 sm:p-7 justify-between gap-6">
         <div>
           <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground transition-colors duration-300 mb-3">
@@ -128,7 +125,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
           </p>
         </div>
 
-        {/* ─── Technologies ─── */}
+        {}
         <div className="flex flex-wrap gap-1.5 py-1">
           {project.technologies.map((tech) => (
             <span
@@ -140,9 +137,9 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
           ))}
         </div>
 
-        {/* ─── Buttons (Smooth App Theme) ─── */}
+        {}
         <div className="flex items-center gap-3 mt-2 pt-4 border-t border-border/40 flex-wrap">
-          {/* Live Demo */}
+          {}
           <a
             href={project.live}
             target="_blank"
@@ -153,7 +150,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
             <span>Live Demo</span>
           </a>
 
-          {/* GitHub Code */}
+          {}
           <a
             href={project.github}
             target="_blank"

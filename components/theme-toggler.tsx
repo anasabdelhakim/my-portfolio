@@ -5,8 +5,6 @@ import { createPortal } from "react-dom";
 import { Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 export type Theme = "light" | "dark";
 
 export interface ThemeTogglerProps {
@@ -16,8 +14,6 @@ export interface ThemeTogglerProps {
   onThemeChange?: (theme: Theme) => void;
   className?: string;
 }
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const EASING = "cubic-bezier(0.76, 0, 0.24, 1)";
 
@@ -29,10 +25,8 @@ function peekNextThemeBg(): string {
   return bg || getComputedStyle(document.body).color || "currentColor";
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export function ThemeToggler({
-  direction = "horizontal", // افتراضي أفقي
+  direction = "horizontal", 
   duration = 550,
   defaultTheme = "light",
   onThemeChange,

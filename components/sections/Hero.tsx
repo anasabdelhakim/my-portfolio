@@ -7,7 +7,6 @@ import { Marquee } from "../ui/marquee";
 import Link from "next/link";
 import Image from "next/image";
 
-// ─── Shared transition (defined once, not recreated per render) ───
 const springTransition = {
   duration: 0.8,
   ease: [0.16, 1, 0.3, 1] as const,
@@ -18,9 +17,6 @@ const fadeUpVariant = (delay: number) => ({
   animate: { opacity: 1, y: 0, transition: { ...springTransition, delay } },
 });
 
-
-
-// ─── Static letter animation variants (defined once at module scope) ───
 const containerVariants = {
   initial: { opacity: 1 },
   animate: { transition: { staggerChildren: 0.04, delayChildren: 0.3 } },
@@ -37,14 +33,12 @@ const letterVariants = {
   },
 } as const;
 
-// ─── Static style for letter spans — not an inline object per render ───
 const letterStyle = {
   display: "inline-block",
   transformStyle: "preserve-3d" as const,
   willChange: "transform, opacity, filter",
 } as const;
 
-// ─── Memoized to prevent re-render when parent re-renders ───
 const AnimatedTitle = memo(function AnimatedTitle({
   text,
   className,
@@ -97,7 +91,6 @@ export function Hero() {
 
   if (!mounted) return null;
 
-  // ─── No LazyMotion here — it's already provided by the root page ───
   return (
     <section
       id="work"
@@ -105,7 +98,7 @@ export function Hero() {
     >
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 min-h-[calc(100vh-96px)] max-w-7xl mx-auto pb-24 lg:pb-0">
 
-        {/* ─── Left Column ─── */}
+        {}
         <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left justify-start px-3 sm:px-6 lg:pl-12 lg:pr-4 pt-12 w-full">
 
           <m.div
@@ -146,12 +139,12 @@ export function Hero() {
             patterns, and seamless system integrations.
           </m.div>
 
-          {/* ─── Buttons ─── */}
+          {}
           <m.div
             {...fadeUpVariant(0.6)}
             className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto px-4 lg:px-0"
           >
-            {/* Wrapper uses CSS transition (no JS/Framer overhead) */}
+            {}
             <div className="w-full sm:w-auto hover:scale-[1.02] active:scale-[0.98] transition-transform duration-300 ease-out z-10">
               <Link href="#projects" onClick={handleScroll} className="w-full sm:w-auto block">
                 <ShimmerButton className="shadow-2xl h-12 px-8 w-full sm:w-auto">
@@ -185,16 +178,16 @@ export function Hero() {
           </m.div>
         </div>
 
-        {/* ─── Right Column (Image) ─── */}
+        {}
         <div className="hidden lg:flex lg:col-span-5 relative items-start justify-center lg:justify-start px-3 lg:pl-0 lg:pr-12 pt-8 lg:pt-16">
           <m.div
             {...fadeUpVariant(0.4)}
             className="relative w-full max-w-[90%] sm:max-w-[400px] lg:max-w-[450px] mx-auto lg:mx-0"
           >
-            {/* Decorative blur — opacity only (composited) */}
+            {}
             <div className="absolute -inset-4 rounded-full opacity-30 blur-3xl bg-purple-500/50" />
             <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden border border-border/50 bg-card/50 shadow-2xl">
-              {/* priority + fetchPriority="high" = browser treats as LCP resource */}
+              {}
               <Image
                 src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop"
                 alt="Code Architecture — dark terminal with colorful syntax highlighting"
@@ -210,7 +203,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* ─── Scroll Indicator ─── */}
+      {}
       <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

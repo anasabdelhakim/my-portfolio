@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { MouseEvent, memo } from "react";
 import { SectionWrapper } from "../section-wrapper";
 
-// ─── Icons defined outside component — no re-creation per render ───
 const Icons = {
   Architecture: () => <svg className="w-7 h-7 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>,
   Runtime:      () => <svg className="w-7 h-7 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
@@ -13,7 +12,6 @@ const Icons = {
   Scale:        () => <svg className="w-7 h-7 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
 };
 
-// ─── Static variant objects — defined once at module level ───
 const cardVariants = {
   hidden:  { opacity: 0, y: 30 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] as const } }),
@@ -28,7 +26,6 @@ const philosophyItems = [
   { title: "Pragmatic Scaling",   description: "Designing modular monoliths that evolve seamlessly into distributed microservices when required.",            icon: <Icons.Scale />,        className: "lg:col-span-2" },
 ];
 
-// ─── SpotlightCard: memoized — only re-renders when item/index change ───
 const SpotlightCard = memo(function SpotlightCard({
   item,
   index,
@@ -38,7 +35,7 @@ const SpotlightCard = memo(function SpotlightCard({
 }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  // ─── gradient template is a derived motion value — no inline object recreation ───
+  
   const background = useMotionTemplate`radial-gradient(250px circle at ${mouseX}px ${mouseY}px, rgba(124, 58, 237, 0.12), transparent 80%)`;
 
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent<HTMLDivElement>) {
@@ -57,24 +54,24 @@ const SpotlightCard = memo(function SpotlightCard({
       onMouseMove={handleMouseMove}
       className={cn(
         "group relative flex flex-col justify-between p-6 md:p-8 rounded-[1.5rem] overflow-hidden cursor-default",
-        // ─── Use opacity/filter transitions — not scale/translate (avoids layout thrash) ───
+        
         "transition-[opacity,box-shadow,border-color] duration-300 ease-out",
         "bg-card text-card-foreground border border-border/50 shadow-sm backdrop-blur-md",
         "hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/5",
         item.className
       )}
     >
-      {/* Mesh Gradients — opacity transition only (composited) */}
+      {}
       <div className="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-50 z-0" />
       <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-30 z-0" />
 
-      {/* Spotlight Effect — motion value drives style, zero JS re-renders */}
+      {}
       <m.div
         className="pointer-events-none absolute -inset-px rounded-[1.5rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
         style={{ background }}
       />
 
-      {/* Content */}
+      {}
       <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left h-full">
         <div className="w-14 h-14 md:w-11 md:h-11 rounded-xl bg-purple-500/5 border border-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500/10 transition-colors duration-300 mb-4 md:mb-6 shadow-sm">
           {item.icon}

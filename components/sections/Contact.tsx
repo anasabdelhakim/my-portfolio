@@ -3,7 +3,6 @@
 import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-// ─── Inline SVG — no extra icon package import ───
 const MailIcon = () => (
   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect width="20" height="16" x="2" y="4" rx="2" />
@@ -11,7 +10,6 @@ const MailIcon = () => (
   </svg>
 );
 
-// ─── Static animation config ───
 const fadeVariants = {
   hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y:  0 },

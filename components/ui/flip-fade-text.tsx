@@ -5,38 +5,19 @@ import { m, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface FlipFadeTextProps {
-    /**
-     * Array of words to cycle through
-     * @default ["LOADING"]
-     */
+    
     words?: string[]
-    /**
-     * Interval between word changes in milliseconds
-     * @default 2500
-     */
+    
     interval?: number
-    /**
-     * Additional CSS classes for the container
-     */
+    
     className?: string
-    /**
-     * Additional CSS classes for the text
-     */
+    
     textClassName?: string
-    /**
-     * Animation duration for each letter in seconds
-     * @default 0.6
-     */
+    
     letterDuration?: number
-    /**
-     * Stagger delay between letters on enter in seconds
-     * @default 0.1
-     */
+    
     staggerDelay?: number
-    /**
-     * Stagger delay between letters on exit in seconds
-     * @default 0.05
-     */
+    
     exitStaggerDelay?: number
 }
 
