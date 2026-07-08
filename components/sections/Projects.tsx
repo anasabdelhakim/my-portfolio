@@ -39,12 +39,20 @@ const projects = [
     github: "https://github.com/anasabdelhakim/Quiz_Mastro.git",
   },
   {
-    title: "Fuchsia App",
-    description: "An e-commerce storefront layout featuring responsive product presentation, category filtering, and clean UI structure.",
-    image: "/ecomerce.avif",
-    technologies: ["HTML5", "Bootstrap", "JavaScript", "CSS3"],
-    live: "https://fuchsia-ecomerce.vercel.app",
-    github: "https://github.com/anasabdelhakim/Fuchsia_Ecomerce.git",
+    title: "e-plantShopping",
+    description: "A modern React + TypeScript shopping application that allows users to browse houseplants, add them to a cart, and manage quantities with a smooth and responsive UI.",
+    image: "/e-shopping.avif",
+    technologies: ["React 18", "TypeScript", "Vite", "Redux Toolkit", "React Redux", "CSS", "ESLint"],
+    live: "https://nursery-shopping-q3d3t9ti6-anasabdelhakims-projects.vercel.app/",
+    github: "https://github.com/anasabdelhakim/paradise-nursery",
+  },
+  {
+    title: "Book Review App",
+    description: "A RESTful API backend service built with Express and MongoDB for managing books, user reviews, and authentication. Features JWT security, password hashing, and structured MVC architecture.",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2070",
+    technologies: ["Node.js", "Express", "MongoDB", "Mongoose", "JWT"],
+    live: "",
+    github: "https://github.com/anasabdelhakim/book-review-app.git",
   },
   {
     title: "World Wise",
@@ -140,15 +148,17 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: (ty
         {}
         <div className="flex items-center gap-3 mt-2 pt-4 border-t border-border/40 flex-wrap">
           {}
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full bg-[#7C3AED] border border-[#7C3AED] text-white text-[11px] uppercase tracking-[1px] hover:tracking-[2px] hover:bg-purple-600 hover:border-purple-600 hover:shadow-[0_5px_15px_0_rgba(124,58,237,0.4)] active:scale-[0.99] transition-all duration-300 ease-out z-10"
-          >
-            <GlobeIcon />
-            <span>Live Demo</span>
-          </a>
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full bg-[#7C3AED] border border-[#7C3AED] text-white text-[11px] uppercase tracking-[1px] hover:tracking-[2px] hover:bg-purple-600 hover:border-purple-600 hover:shadow-[0_5px_15px_0_rgba(124,58,237,0.4)] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+            >
+              <GlobeIcon />
+              <span>Live Demo</span>
+            </a>
+          )}
 
           {}
           <a
