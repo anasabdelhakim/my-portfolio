@@ -156,7 +156,7 @@ export function Hero() {
             <a
               href="/Anas_Cv.pdf"
               download="Anas_Abdelhakim_CV.pdf"
-              className="w-full sm:w-auto group relative flex items-center justify-center gap-2 h-12 px-8 rounded-full border-2 border-border backdrop-blur-md text-foreground text-[13px] uppercase tracking-[1.5px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-500 ease-in-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
+              className="w-full sm:w-auto group relative flex items-center justify-center gap-2 h-12 px-8 rounded-full border-2 dark:border-white/10 border-black/10 bg-transparent backdrop-blur-md text-foreground text-[13px] uppercase tracking-[1.5px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-[400ms] ease-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
             >
               <span>Download CV</span>
             </a>

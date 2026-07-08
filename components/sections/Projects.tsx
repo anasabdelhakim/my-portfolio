@@ -157,7 +157,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border-2 border-border backdrop-blur-md text-foreground text-[11px] uppercase tracking-[1.5px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-500 ease-in-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
+              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border-2 dark:border-white/10 border-black/10 bg-transparent backdrop-blur-md text-foreground text-[11px] uppercase tracking-[1.5px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-[400ms] ease-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
             >
               <GlobeIcon />
               <span>Live Demo</span>
@@ -168,7 +168,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border-2 border-border backdrop-blur-md text-foreground text-[11px] uppercase tracking-[1.5px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-500 ease-in-out hover:tracking-[3px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
+            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
           >
             <GithubIcon />
             <span>Code</span>
