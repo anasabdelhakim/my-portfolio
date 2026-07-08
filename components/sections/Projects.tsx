@@ -32,11 +32,12 @@ const projects = [
   },
   {
     title: "Quiz Mastro",
-    description: "A frontend assessment system featuring AI-assisted question generation via DeepSeek API, interactive testing environment, and advanced data visualization with an integrated grading workflow.",
+    description: "A production-grade assessment platform featuring dual-role access, AI quiz building, enterprise Zod validation, and an immersive Tailwind UI.",
     image: "/quiz-mastro.avif",
-    technologies: ["Angular", "TypeScript", "DeepSeek API", "HTML5", "CSS3", "REST APIs"],
+    technologies: ["Angular 19", "TypeScript", "Tailwind CSS", "NgRx", "RxJS", "Zod", "Spartan-ng", "DeepSeek API"],
     live: "https://quiz-mastro-c5vv.vercel.app/index",
     github: "https://github.com/anasabdelhakim/Quiz_Mastro.git",
+    badge: "Featured Project",
   },
   {
     title: "e-plantShopping",
