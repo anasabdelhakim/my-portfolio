@@ -5,22 +5,25 @@ import { m, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SectionWrapper } from "../section-wrapper";
 
-const categories = ["All", "Backend & Core", "Frontend", "Database & Infra"] as const;
+const categories = ["All", "Backend & Core", "Frontend", "Database & Infra", "Deployment & DevOps"] as const;
 type Category = (typeof categories)[number];
 
 const skills = [
-  { name: "NestJS",       category: "Backend & Core",   desc: "Enterprise scalable architecture"    },
-  { name: "Next.js",      category: "Frontend",         desc: "App Router & Server Components"       },
-  { name: "Node.js",      category: "Backend & Core",   desc: "V8 engine optimizations"              },
-  { name: "Bun",          category: "Backend & Core",   desc: "Ultra-fast runtime & edge computing"  },
-  { name: "Fastify",      category: "Backend & Core",   desc: "High-throughput APIs"                 },
-  { name: "React",        category: "Frontend",         desc: "Concurrent features & Hooks"          },
-  { name: "Tailwind CSS", category: "Frontend",         desc: "Design system architecture"           },
-  { name: "Shadcn UI",    category: "Frontend",         desc: "Accessible headless architecture"     },
-  { name: "PostgreSQL",   category: "Database & Infra", desc: "Complex relational queries"           },
-  { name: "Prisma v7",    category: "Database & Infra", desc: "Advanced ORM & init configs"          },
-  { name: "Supabase",     category: "Database & Infra", desc: "Realtime DB & Auth"                   },
-  { name: "Docker",       category: "Database & Infra", desc: "Containerized environments"           },
+  { name: "TypeScript",   category: "Backend & Core",       desc: "Type-safe development across the stack"  },
+  { name: "NestJS",       category: "Backend & Core",       desc: "Enterprise scalable architecture"    },
+  { name: "Node.js",      category: "Backend & Core",       desc: "V8 engine optimizations"              },
+  { name: "Bun",          category: "Backend & Core",       desc: "Ultra-fast runtime & edge computing"  },
+  { name: "Next.js",      category: "Frontend",             desc: "App Router & Server Components"       },
+  { name: "React",        category: "Frontend",             desc: "Concurrent features & Hooks"          },
+  { name: "Tailwind CSS", category: "Frontend",             desc: "Design system architecture"           },
+  { name: "Shadcn UI",    category: "Frontend",             desc: "Accessible headless architecture"     },
+  { name: "PostgreSQL",   category: "Database & Infra",     desc: "Complex relational queries"           },
+  { name: "Prisma",       category: "Database & Infra",     desc: "Type-safe ORM & migrations"           },
+  { name: "MongoDB",      category: "Database & Infra",     desc: "Document-based data modeling"         },
+  { name: "Docker",       category: "Deployment & DevOps",  desc: "Containerized dev & production environments" },
+  { name: "Cloudflare",   category: "Deployment & DevOps",  desc: "Edge security & CDN delivery"         },
+  { name: "Hugging Face", category: "Deployment & DevOps",  desc: "Model & app hosting infrastructure"   },
+  { name: "Vercel",       category: "Deployment & DevOps",  desc: "CI/CD & serverless deployment"        },
 ] as const;
 
 const cardVariants = {
