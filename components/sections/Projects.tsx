@@ -33,26 +33,26 @@ type ProjectType = {
 const projects: ProjectType[] = [
   {
     title: "NeuroMeet",
-    description: "A fullstack AI-powered e-learning engagement detection platform with real-time video analytics, custom WebRTC integrations, and instructor dashboards.",
+    description: "A real-time meeting platform with role-based dashboards, LiveKit WebRTC integration, and a high-performance NestJS backend running on Bun — deployed as a Dockerized monorepo across Vercel and Hugging Face Spaces with Cloudflare edge security.",
     image: "/neuromeet.avif",
-    technologies: ["Next.js 16", "NestJS", "Fastify", "LiveKit WebRTC", "Prisma v7", "PostgreSQL", "Python AI Agent", "PyTorch", "OpenCV", "Docker", "Bun"],
+    technologies: ["Next.js", "NestJS", "Bun", "LiveKit WebRTC", "Prisma", "PostgreSQL", "Docker", "Cloudflare", "Hugging Face"],
     live: "https://neuromeet.anasdev.shop",
-    github: "https://github.com/anasabdelhakim/neuromeet-core.git",
+    github: "https://github.com/anasabdelhakim/neuromeet-core",
     badge: "Featured Project",
   },
   {
-    title: "Quiz Mastro",
-    description: "A production-grade assessment platform featuring dual-role access, AI quiz building, enterprise Zod validation, and an immersive Tailwind UI.",
+    title: "Quiz Maestro",
+    description: "A production-grade assessment platform featuring dual-role access, AI-assisted quiz building, enterprise Zod validation, and an immersive Tailwind UI.",
     image: "/quiz-mastro.avif",
-    technologies: ["Angular 19", "TypeScript", "Tailwind CSS", "NgRx", "RxJS", "Zod", "Spartan-ng", "DeepSeek API"],
+    technologies: ["Angular", "TypeScript", "Tailwind CSS", "NgRx", "RxJS", "Zod"],
     live: "https://quiz-mastro-c5vv.vercel.app/index",
-    github: "https://github.com/anasabdelhakim/Quiz_Mastro.git",
+    github: "https://github.com/anasabdelhakim/Quiz_Mastro",
   },
   {
     title: "e-plantShopping",
     description: "A modern React + TypeScript shopping application that allows users to browse houseplants, add them to a cart, and manage quantities with a smooth and responsive UI.",
     image: "/e-shopping.avif",
-    technologies: ["React 18", "TypeScript", "Vite", "Redux Toolkit", "React Redux", "CSS", "ESLint"],
+    technologies: ["React", "TypeScript", "Vite", "Redux Toolkit", "CSS"],
     live: "https://nursery-shopping-q3d3t9ti6-anasabdelhakims-projects.vercel.app/",
     github: "https://github.com/anasabdelhakim/paradise-nursery",
   },
@@ -62,7 +62,7 @@ const projects: ProjectType[] = [
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2070",
     technologies: ["Node.js", "Express", "MongoDB", "Mongoose", "JWT"],
     live: "",
-    github: "https://github.com/anasabdelhakim/book-review-app.git",
+    github: "https://github.com/anasabdelhakim/book-review-app",
   },
   {
     title: "World Wise",
@@ -70,7 +70,7 @@ const projects: ProjectType[] = [
     image: "/world-wise.avif",
     technologies: ["JavaScript", "CSS3", "HTML5"],
     live: "https://world-wise-three-rho.vercel.app/",
-    github: "https://github.com/anasabdelhakim/World-Wise.git",
+    github: "https://github.com/anasabdelhakim/World-Wise",
   },
 ];
 
@@ -95,7 +95,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
       initial="hidden"
       whileInView="visible"
       viewport={viewportOptions}
-      className="group relative flex flex-col overflow-hidden rounded-[1.5rem] border border-border/50 bg-gradient-to-b from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out"
+      className="group relative flex flex-col h-full overflow-hidden rounded-[1.5rem] border border-border/50 bg-gradient-to-b from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out"
     >
       <div className="relative w-full aspect-video overflow-hidden bg-muted/30 transform-gpu isolate">
         {project.badge && (
@@ -187,7 +187,7 @@ export function Projects() {
       titleMain="System"
       titleHighlight="Architectures"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-6 lg:gap-8 items-start">
+      <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-6 lg:gap-8 items-stretch">
         {projects.map((project, i) => (
           <ProjectCard key={project.title} project={project} index={i} />
         ))}

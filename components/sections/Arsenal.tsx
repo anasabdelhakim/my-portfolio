@@ -5,7 +5,7 @@ import { m, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SectionWrapper } from "../section-wrapper";
 
-const categories = ["All", "Backend & Core", "Frontend", "Database & Infra", "Deployment & DevOps"] as const;
+const categories = ["All", "Backend & Core", "Frontend", "Database & Deployment"] as const;
 type Category = (typeof categories)[number];
 
 const skills = [
@@ -17,13 +17,13 @@ const skills = [
   { name: "React",        category: "Frontend",             desc: "Concurrent features & Hooks"          },
   { name: "Tailwind CSS", category: "Frontend",             desc: "Design system architecture"           },
   { name: "Shadcn UI",    category: "Frontend",             desc: "Accessible headless architecture"     },
-  { name: "PostgreSQL",   category: "Database & Infra",     desc: "Complex relational queries"           },
-  { name: "Prisma",       category: "Database & Infra",     desc: "Type-safe ORM & migrations"           },
-  { name: "MongoDB",      category: "Database & Infra",     desc: "Document-based data modeling"         },
-  { name: "Docker",       category: "Deployment & DevOps",  desc: "Containerized dev & production environments" },
-  { name: "Cloudflare",   category: "Deployment & DevOps",  desc: "Edge security & CDN delivery"         },
-  { name: "Hugging Face", category: "Deployment & DevOps",  desc: "Model & app hosting infrastructure"   },
-  { name: "Vercel",       category: "Deployment & DevOps",  desc: "CI/CD & serverless deployment"        },
+  { name: "PostgreSQL",   category: "Database & Deployment",     desc: "Complex relational queries"           },
+  { name: "Prisma",       category: "Database & Deployment",     desc: "Type-safe ORM & migrations"           },
+  { name: "MongoDB",      category: "Database & Deployment",     desc: "Document-based data modeling"         },
+  { name: "Docker",       category: "Database & Deployment",  desc: "Containerized dev & production environments" },
+  { name: "Cloudflare",   category: "Database & Deployment",  desc: "Edge security & CDN delivery"         },
+  { name: "Hugging Face", category: "Database & Deployment",  desc: "Model & app hosting infrastructure"   },
+  { name: "Vercel",       category: "Database & Deployment",  desc: "CI/CD & serverless deployment"        },
 ] as const;
 
 const cardVariants = {
