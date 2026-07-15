@@ -4,6 +4,7 @@ import { useState, memo } from "react";
 import { m } from "framer-motion";
 import Image from "next/image";
 import { SectionWrapper } from "../section-wrapper";
+import { cn } from "@/lib/utils";
 
 const GithubIcon = () => (
   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -179,7 +180,107 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
   );
 });
 
+const FeaturedProjectCard = memo(function FeaturedProjectCard({ project, index, isReversed }: { project: ProjectType; index: number, isReversed: boolean }) {
+  const [showmore, setShowmore] = useState(false);
+
+  return (
+    <m.div
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportOptions}
+      className={cn(
+        "group relative flex flex-col lg:flex-row h-full overflow-hidden rounded-[1.5rem] lg:rounded-[2.5rem] border border-border/50 from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-purple-500/30 hover:shadow-[0_20px_60px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out",
+        isReversed ? "lg:flex-row-reverse" : ""
+      )}
+    >
+      <div className="relative w-full lg:w-[55%] aspect-video lg:aspect-auto lg:min-h-[400px] overflow-hidden bg-muted/30 transform-gpu isolate">
+        {project.badge && (
+          <div className="absolute top-6 left-6 z-20 px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-500 text-xs font-bold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.2)]">
+            {project.badge}
+          </div>
+        )}
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          sizes="(max-width: 1024px) 100vw, 55vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className={cn("absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-80 z-10 pointer-events-none", isReversed ? "lg:bg-gradient-to-l" : "lg:bg-gradient-to-r")} />
+      </div>
+
+      <div className="relative z-20 flex flex-col flex-1 p-6 sm:p-7 lg:p-12 justify-between lg:justify-center gap-6 lg:w-[45%]">
+        <div>
+          <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold tracking-tight text-foreground transition-colors duration-300 mb-3 lg:mb-4">
+            {project.title}
+          </h3>
+
+          <p
+            onClick={() => setShowmore((show) => !show)}
+            className="text-muted-foreground text-xs sm:text-sm lg:text-base leading-relaxed cursor-pointer select-none"
+          >
+            {showmore || project.description.length <= 150 ? (
+              <>
+                {project.description}
+                {project.description.length > 150 && (
+                  <span className="text-purple-400 hover:text-purple-300 font-medium ml-1 transition-colors"> see less</span>
+                )}
+              </>
+            ) : (
+              <>
+                {project.description.slice(0, 150)}
+                <span className="font-medium">...</span>
+                <span className="text-purple-400 hover:text-purple-300 font-medium ml-1 transition-colors"> see more</span>
+              </>
+            )}
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-2 py-2">
+          {project.technologies.map((tech) => (
+            <span
+              key={tech}
+              className="border border-purple-500/20 bg-purple-500/10 rounded-full px-3 py-1 lg:px-4 lg:py-1.5 text-[11px] lg:text-xs font-semibold text-purple-500 tracking-wide font-mono shadow-[0_0_10px_rgba(124,58,237,0.05)]"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-3 lg:gap-4 mt-2 pt-4 lg:pt-6 border-t border-border/40 flex-wrap">
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn relative flex items-center justify-center gap-2 h-10 lg:h-12 px-6 lg:px-8 rounded-full border-2 dark:border-white/10 border-black/10 bg-transparent backdrop-blur-md text-foreground text-[11px] lg:text-xs uppercase tracking-[1.5px] lg:tracking-[2px] transition-[letter-spacing,background-color,border-color,color,box-shadow] duration-[400ms] ease-out hover:tracking-[3px] lg:hover:tracking-[4px] hover:bg-[#7C3AED] hover:border-[#7C3AED] hover:text-white hover:shadow-[0_7px_20px_0_rgba(124,58,237,0.3)] active:translate-y-[1px] active:scale-[0.99] active:shadow-none active:duration-75 z-10"
+            >
+              <GlobeIcon />
+              <span>Live Demo</span>
+            </a>
+          )}
+
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/btn relative flex items-center justify-center gap-2 h-10 lg:h-12 px-6 lg:px-8 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] lg:text-xs uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+          >
+            <GithubIcon />
+            <span>Code</span>
+          </a>
+        </div>
+      </div>
+    </m.div>
+  );
+});
+
 export function Projects() {
+  const featuredProjects = projects.slice(0, 2);
+  const regularProjects = projects.slice(2);
+
   return (
     <SectionWrapper
       id="projects"
@@ -187,9 +288,14 @@ export function Projects() {
       titleMain="System"
       titleHighlight="Architectures"
     >
+      <div className="flex flex-col gap-12 lg:gap-20 mb-12 lg:mb-20">
+        {featuredProjects.map((project, i) => (
+          <FeaturedProjectCard key={project.title} project={project} index={i} isReversed={i % 2 !== 0} />
+        ))}
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(380px,1fr))] gap-6 lg:gap-8 items-stretch">
-        {projects.map((project, i) => (
-          <ProjectCard key={project.title} project={project} index={i} />
+        {regularProjects.map((project, i) => (
+          <ProjectCard key={project.title} project={project} index={i + featuredProjects.length} />
         ))}
       </div>
     </SectionWrapper>
