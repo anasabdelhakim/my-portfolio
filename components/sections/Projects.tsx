@@ -45,7 +45,7 @@ const projects: ProjectType[] = [
     description: "A production-grade assessment platform featuring dual-role access, AI-assisted quiz building, enterprise Zod validation, and an immersive Tailwind UI.",
     image: "/quiz-mastro.avif",
     technologies: ["Angular", "TypeScript", "Tailwind CSS", "NgRx", "RxJS", "Zod"],
-    live: "https://quiz-mastro-c5vv.vercel.app/index",
+    live: "https://quiz-mastro.vercel.app/",
     github: "https://github.com/anasabdelhakim/Quiz_Mastro",
   },
   {
@@ -95,7 +95,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
       initial="hidden"
       whileInView="visible"
       viewport={viewportOptions}
-      className="group relative flex flex-col h-full overflow-hidden rounded-[1.5rem] border border-border/50 bg-gradient-to-b from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out"
+      className="group relative flex flex-col h-full overflow-hidden rounded-[1.5rem] border border-border/50 from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out"
     >
       <div className="relative w-full aspect-video overflow-hidden bg-muted/30 transform-gpu isolate">
         {project.badge && (

@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dev docs, AI configs, and scripts
+portfolio_creative_direction_doc.html
+remove-empty-braces.js
+AGENTS.md
+BRIEF.md
+CLAUDE.md
