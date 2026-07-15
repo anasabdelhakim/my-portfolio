@@ -180,16 +180,40 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
   );
 });
 
+const featuredVariants = {
+  hidden: ({ isReversed }: { isReversed: boolean }) => {
+    const isLarge = typeof window !== 'undefined' && window.innerWidth >= 1024;
+    return isLarge 
+      ? { opacity: 0, x: isReversed ? 80 : -80, scale: 0.95, filter: "blur(4px)" } 
+      : { opacity: 0, y: 30, x: 0, scale: 1, filter: "blur(0px)" };
+  },
+  visible: ({ index }: { index: number }) => {
+    const isLarge = typeof window !== 'undefined' && window.innerWidth >= 1024;
+    return {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { 
+        duration: isLarge ? 0.8 : 0.5, 
+        delay: isLarge ? index * 0.15 + 0.1 : index * 0.15, 
+        ease: [0.16, 1, 0.3, 1] as const 
+      },
+    };
+  }
+};
+
 const FeaturedProjectCard = memo(function FeaturedProjectCard({ project, index, isReversed }: { project: ProjectType; index: number, isReversed: boolean }) {
   const [showmore, setShowmore] = useState(false);
 
   return (
     <m.div
-      custom={index}
-      variants={cardVariants}
+      custom={{ index, isReversed }}
+      variants={featuredVariants as any}
       initial="hidden"
       whileInView="visible"
-      viewport={viewportOptions}
+      viewport={{ once: true, amount: 0.25 }}
       className={cn(
         "group relative flex flex-col lg:flex-row h-full overflow-hidden rounded-[1.5rem] lg:rounded-[2.5rem] border border-border/50 from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-purple-500/30 hover:shadow-[0_20px_60px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out",
         isReversed ? "lg:flex-row-reverse" : ""
