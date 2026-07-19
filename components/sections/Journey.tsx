@@ -58,10 +58,7 @@ export function Journey() {
       titleHighlight="Education"
     >
       <div className="relative w-full max-w-5xl mx-auto mt-12 md:mt-24">
-        <div className="flex flex-col gap-8 md:gap-24 relative z-10">
-          
-          {/* Mobile continuous line (runs behind cards) - colored on entrance */}
-          <div className="md:hidden absolute top-4 bottom-4 left-[19px] w-[2px] bg-purple-500/40 dark:bg-purple-500/30 z-0 pointer-events-none" />
+        <div className="flex flex-col gap-0 md:gap-24 relative z-10">
 
           {journeyItems.map((item, index) => {
             const isEven = index % 2 === 0;
@@ -72,8 +69,8 @@ export function Journey() {
                 key={index}
                 className={cn(
                   "relative flex w-full group",
-                  // Mobile: stack node above card. Desktop: flex-row for alternating
-                  "flex-col items-start md:flex-row md:items-center",
+                  // Mobile: center stack. Desktop: flex-row for alternating
+                  "flex-col items-center md:flex-row md:items-center",
                   isEven ? "md:justify-start" : "md:justify-end"
                 )}
               >
@@ -120,12 +117,17 @@ export function Journey() {
                   </div>
                 )}
                 
+                {/* Mobile UP Leg (Connects previous card to this node) */}
+                {index > 0 && (
+                  <div className="md:hidden w-[2px] h-6 sm:h-8 bg-purple-500/40 dark:bg-purple-500/30" />
+                )}
+
                 {/* Node */}
                 <div
                   className={cn(
                     "flex items-center justify-center z-20",
-                    // Mobile: normal flex flow, above card, gap downwards
-                    "w-10 h-10 mb-3 md:mb-0",
+                    // Mobile: normal flex flow
+                    "w-10 h-10",
                     // Desktop: absolute, positioned inside container to avoid overflow collapse
                     "md:absolute md:top-[50%] md:-translate-y-1/2 md:w-12 md:h-12",
                     isEven ? "md:left-0" : "md:right-0"
@@ -139,6 +141,9 @@ export function Journey() {
                     </div>
                   </div>
                 </div>
+
+                {/* Mobile DOWN Leg (Connects node to card) */}
+                <div className="md:hidden w-[2px] h-6 sm:h-8 bg-purple-500/40 dark:bg-purple-500/30" />
 
                 {/* Content Card container */}
                 <div
