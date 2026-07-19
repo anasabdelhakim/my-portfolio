@@ -16,6 +16,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const docReady = new Promise<void>((res) => {
       if (document.readyState === "complete") res();
       else window.addEventListener("load", () => res(), { once: true });
@@ -24,7 +25,15 @@ export default function Home() {
     Promise.all([
       new Promise<void>((res) => setTimeout(res, 2000)),
       docReady,
-    ]).then(() => setIsLoading(false));
+    ]).then(() => {
+      if (isMounted) {
+        setIsLoading(false);
+      }
+    });
+    
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

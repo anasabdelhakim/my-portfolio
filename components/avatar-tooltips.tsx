@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, useTransform, useMotionValue, useSpring, AnimatePresence } from "motion/react";
+import { m, useTransform, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -38,7 +38,7 @@ const AvatarTooltipItem = ({ item }: { item: AvatarItem }) => {
     >
       <AnimatePresence mode="popLayout">
         {isHovered && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -64,7 +64,7 @@ const AvatarTooltipItem = ({ item }: { item: AvatarItem }) => {
                 {item.designation}
               </p>
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 

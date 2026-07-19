@@ -42,11 +42,21 @@ export function ThemeToggler({
   const scale1 = isV ? "scaleY(1)" : "scaleX(1)";
   const originIn = isV ? "top center" : "left center";
   const originOut = isV ? "bottom center" : "right center";
+  const isMountedRef = useRef(true);
+
+  const timeout1Ref = useRef<NodeJS.Timeout | null>(null);
+  const timeout2Ref = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    isMountedRef.current = true;
     const isDark = document.documentElement.classList.contains("dark");
     themeRef.current = isDark ? "dark" : "light";
     forceRender();
+    return () => {
+      isMountedRef.current = false;
+      if (timeout1Ref.current) clearTimeout(timeout1Ref.current);
+      if (timeout2Ref.current) clearTimeout(timeout2Ref.current);
+    };
   }, []);
 
   const toggle = () => {
@@ -66,24 +76,30 @@ export function ThemeToggler({
     curtain.style.transition = `transform ${duration}ms ${EASING}`;
     curtain.style.transform = scale1;
 
-    setTimeout(() => {
+    timeout1Ref.current = setTimeout(() => {
+      if (!isMountedRef.current) return;
       themeRef.current = next;
       document.documentElement.classList.toggle("dark", next === "dark");
       onThemeChange?.(next);
       forceRender();
 
-      curtain.style.transformOrigin = originOut;
-      requestAnimationFrame(() => {
+      if (curtain) {
+        curtain.style.transformOrigin = originOut;
         requestAnimationFrame(() => {
-          curtain.style.transform = scale0;
+          requestAnimationFrame(() => {
+            if (curtain) curtain.style.transform = scale0;
+          });
         });
-      });
+      }
     }, duration);
 
-    setTimeout(() => {
-      curtain.style.transition = "none";
-      curtain.style.transform = scale0;
-      curtain.style.transformOrigin = originIn;
+    timeout2Ref.current = setTimeout(() => {
+      if (!isMountedRef.current) return;
+      if (curtain) {
+        curtain.style.transition = "none";
+        curtain.style.transform = scale0;
+        curtain.style.transformOrigin = originIn;
+      }
       animatingRef.current = false;
     }, duration * 2 + 100);
   };

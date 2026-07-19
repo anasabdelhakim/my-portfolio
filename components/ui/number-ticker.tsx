@@ -27,11 +27,15 @@ export default function NumberTicker({
   const isInView = useInView(ref, { once: true, margin: "0px" });
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
     if (isInView) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         motionValue.set(direction === "down" ? 0 : value);
       }, delay * 1000);
     }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [motionValue, isInView, delay, value, direction]);
 
   useEffect(() => {
