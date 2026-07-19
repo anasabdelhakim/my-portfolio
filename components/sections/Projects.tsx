@@ -190,8 +190,8 @@ const featuredVariants = {
   hidden: ({ isReversed }: { isReversed: boolean }) => {
     const isLarge = typeof window !== 'undefined' && window.innerWidth >= 1024;
     return isLarge 
-      ? { opacity: 0, x: isReversed ? 80 : -80, scale: 0.95, filter: "blur(4px)" } 
-      : { opacity: 0, y: 30, x: 0, scale: 1, filter: "blur(0px)" };
+      ? { opacity: 0, x: isReversed ? 80 : -80, scale: 0.95 } 
+      : { opacity: 0, y: 30, x: 0, scale: 1 };
   },
   visible: ({ index }: { index: number }) => {
     const isLarge = typeof window !== 'undefined' && window.innerWidth >= 1024;
@@ -200,7 +200,6 @@ const featuredVariants = {
       x: 0,
       y: 0,
       scale: 1,
-      filter: "blur(0px)",
       transition: { 
         duration: isLarge ? 0.8 : 0.5, 
         delay: isLarge ? index * 0.15 + 0.1 : index * 0.15, 

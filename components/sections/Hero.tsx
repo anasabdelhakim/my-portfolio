@@ -23,12 +23,11 @@ const containerVariants = {
 } as const;
 
 const letterVariants = {
-  initial: { y: 80, opacity: 0, rotateX: 90, filter: "blur(8px)" },
+  initial: { y: 80, opacity: 0, rotateX: 90 },
   animate: {
     y: 0,
     opacity: 1,
     rotateX: 0,
-    filter: "blur(0px)",
     transition: springTransition,
   },
 } as const;

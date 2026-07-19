@@ -5,8 +5,8 @@ import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const headerVariants = {
-  hidden:  { opacity: 0, y: 20, filter: "blur(2px)" },
-  visible: { opacity: 1, y:  0, filter: "blur(0px)" },
+  hidden:  { opacity: 0, y: 20 },
+  visible: { opacity: 1, y:  0 },
 } as const;
 
 const contentVariants = {
