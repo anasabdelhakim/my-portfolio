@@ -55,15 +55,16 @@ const SpotlightCard = memo(function SpotlightCard({
       className={cn(
         "group relative flex flex-col justify-between p-6 md:p-8 rounded-[1.5rem] overflow-hidden cursor-default",
         
-        "transition-[opacity,box-shadow,border-color] duration-300 ease-out",
-        "bg-card text-card-foreground border border-border/50 shadow-sm backdrop-blur-md",
-        "hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/5",
+        "transition-[opacity,box-shadow,border-color,background] duration-500 ease-out",
+        "bg-gradient-to-br from-purple-500/10 via-white/60 to-blue-500/10 dark:from-purple-500/5 dark:via-card/50 dark:to-blue-500/5",
+        "text-card-foreground border border-purple-500/30 dark:border-purple-500/10 shadow-[0_5px_30px_rgba(124,58,237,0.1)] dark:shadow-[0_0_30px_rgba(124,58,237,0.02)] backdrop-blur-md",
+        "hover:border-purple-500/50 dark:hover:border-purple-500/30 hover:shadow-[0_10px_40px_rgba(124,58,237,0.15)] dark:hover:shadow-[0_0_40px_rgba(124,58,237,0.1)]",
         item.className
       )}
     >
 
-      <div className="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-50 z-0" />
-      <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-30 z-0" />
+      <div className="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-500/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
       <m.div
         className="pointer-events-none absolute -inset-px rounded-[1.5rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
@@ -71,11 +72,12 @@ const SpotlightCard = memo(function SpotlightCard({
       />
 
       <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left h-full">
-        <div className="w-16 h-16 rounded-2xl bg-purple-500/5 border border-purple-500/10 flex items-center justify-center text-purple-500 group-hover:bg-purple-500/10 transition-colors duration-300 mb-5 shadow-sm">
-          {item.icon}
+        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/5 to-blue-500/5 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-5 shadow-[0_0_15px_rgba(124,58,237,0.05)] overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out z-0" />
+          <div className="relative z-10 transition-transform duration-500 group-hover:scale-110">{item.icon}</div>
         </div>
         <h3 className="text-xl md:text-2xl font-semibold mb-3 tracking-tight">{item.title}</h3>
-        <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-[100%] md:max-w-[95%] mx-auto md:mx-0">
+        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-[100%] md:max-w-[95%] mx-auto md:mx-0">
           {item.description}
         </p>
       </div>

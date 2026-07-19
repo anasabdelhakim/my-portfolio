@@ -1,8 +1,8 @@
 "use client";
 
-import { m, useScroll, useMotionValueEvent } from "framer-motion";
+import { m, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, memo, useEffect } from "react";
 import { ThemeToggler } from "../theme-toggler";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import Image from "next/image";
 const navLinks = [
   { href: "#work",       label: "Work"      },
   { href: "#philosophy", label: "Philosophy" },
+  { href: "#journey",    label: "Journey"    },
   { href: "#arsenal",    label: "Skills"     },
   { href: "#projects",   label: "Systems"    },
 ] as const;
@@ -37,6 +38,18 @@ export function Nav() {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled]     = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     
@@ -132,7 +145,7 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-3 sm:gap-4 relative z-[60]">
           <ThemeToggler />
           <Link
             href="#contact"
@@ -141,8 +154,84 @@ export function Nav() {
           >
             Let's Talk
           </Link>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex flex-col items-center justify-center w-9 h-9 rounded-full border border-border/50 bg-background hover:bg-muted transition-colors relative z-50 pointer-events-auto"
+            aria-label="Toggle Menu"
+          >
+            <span className={cn("w-3.5 h-[1.5px] bg-foreground transition-all duration-300 absolute", mobileMenuOpen ? "rotate-45" : "-translate-y-1")} />
+            <span className={cn("w-3.5 h-[1.5px] bg-foreground transition-all duration-300 absolute", mobileMenuOpen ? "opacity-0" : "opacity-100")} />
+            <span className={cn("w-3.5 h-[1.5px] bg-foreground transition-all duration-300 absolute", mobileMenuOpen ? "-rotate-45" : "translate-y-1")} />
+          </button>
         </div>
       </m.div>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <m.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+              className="fixed inset-0 z-[40] bg-background/40 backdrop-blur-sm md:hidden pointer-events-auto"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Sidebar Drawer */}
+            <m.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
+              className="fixed inset-y-0 right-0 z-[50] w-[75%] max-w-[300px] bg-background/95 backdrop-blur-xl border-l border-border/50 shadow-2xl md:hidden pointer-events-auto flex flex-col pt-24 px-6 pb-12"
+            >
+              <div className="flex flex-col gap-4 mt-4 flex-1">
+                <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-2 px-4">Navigation</p>
+                {navLinks.map((link, i) => (
+                  <m.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.4, delay: 0.1 + i * 0.05, ease: [0.76, 0, 0.24, 1] }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={(e) => {
+                        setMobileMenuOpen(false);
+                        handleScroll(e, link.href);
+                      }}
+                      className="text-lg font-medium tracking-wide text-foreground/80 hover:text-purple-500 hover:bg-muted/50 transition-colors block py-3 px-4 rounded-xl"
+                    >
+                      {link.label}
+                    </Link>
+                  </m.div>
+                ))}
+              </div>
+              <m.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.4, delay: 0.1 + navLinks.length * 0.05, ease: [0.76, 0, 0.24, 1] }}
+                className="mt-8 border-t border-border/50 pt-8 px-4"
+              >
+                <Link
+                  href="#contact"
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    handleScroll(e, "#contact");
+                  }}
+                  className="inline-flex h-11 w-full items-center justify-center rounded-full bg-foreground px-8 text-sm font-semibold text-background transition-transform active:scale-95"
+                >
+                  Let's Talk
+                </Link>
+              </m.div>
+            </m.div>
+          </>
+        )}
+      </AnimatePresence>
     </m.nav>
   );
 }

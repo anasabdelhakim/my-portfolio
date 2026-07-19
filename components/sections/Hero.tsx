@@ -42,9 +42,11 @@ const letterStyle = {
 const AnimatedTitle = memo(function AnimatedTitle({
   text,
   className,
+  gradient = false,
 }: {
   text: string;
   className?: string;
+  gradient?: boolean;
 }) {
   const letters = text.split("");
   return (
@@ -54,15 +56,29 @@ const AnimatedTitle = memo(function AnimatedTitle({
       animate="animate"
       variants={containerVariants}
     >
-      {letters.map((char, i) => (
-        <m.span
-          key={i}
-          variants={letterVariants}
-          style={letterStyle}
-        >
-          {char === " " ? "\u00A0" : char}
-        </m.span>
-      ))}
+      {letters.map((char, i) => {
+        const isGradient = gradient && char !== " ";
+        return (
+          <m.span
+            key={i}
+            variants={letterVariants}
+            style={{
+              ...letterStyle,
+              ...(isGradient
+                ? {
+                    backgroundImage: "linear-gradient(to right, #a855f7 55%, #3b82f6)",
+                    WebkitBackgroundClip: "text",
+                    color: "transparent",
+                    backgroundSize: `${letters.length * 100}% 100%`,
+                    backgroundPosition: `${(i / (Math.max(1, letters.length - 1))) * 100}% 0`,
+                  }
+                : {}),
+            }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </m.span>
+        );
+      })}
     </m.div>
   );
 });
@@ -125,7 +141,8 @@ export function Hero() {
               <AnimatedTitle text="Full-Stack" className="justify-center lg:justify-start" />
               <AnimatedTitle
                 text="Engineer."
-                className="text-purple-500/90 dark:text-purple-400 justify-center lg:justify-start"
+                className="justify-center lg:justify-start"
+                gradient={true}
               />
             </div>
           </div>

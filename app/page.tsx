@@ -6,6 +6,7 @@ import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { Nav } from "@/components/ui/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { Philosophy } from "@/components/sections/Philosophy";
+import { Journey } from "@/components/sections/Journey";
 import { Arsenal } from "@/components/sections/Arsenal";
 import { Projects } from "@/components/sections/Projects";
 import { Contact } from "@/components/sections/Contact";
@@ -37,6 +38,7 @@ export default function Home() {
               <Nav />
               <Hero />
               <Philosophy />
+              <Journey />
               <Arsenal />
               <Projects />
               <Contact />

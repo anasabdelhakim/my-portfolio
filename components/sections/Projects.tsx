@@ -96,7 +96,13 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
       initial="hidden"
       whileInView="visible"
       viewport={viewportOptions}
-      className="group relative flex flex-col h-full overflow-hidden rounded-[1.5rem] border border-border/50 from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-muted-foreground/30 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out"
+      className={cn(
+        "group relative flex flex-col h-full overflow-hidden rounded-[1.5rem] backdrop-blur-xl transition-all duration-500 ease-out",
+        "bg-gradient-to-br from-purple-500/10 via-white/60 to-blue-500/10 dark:from-purple-500/5 dark:via-card/40 dark:to-blue-500/5",
+        "border border-purple-500/30 dark:border-border/50",
+        "hover:border-purple-500/50 dark:hover:border-purple-500/30 hover:-translate-y-1.5",
+        "shadow-[0_10px_40px_rgba(124,58,237,0.1)] dark:shadow-none hover:shadow-[0_15px_50px_rgba(124,58,237,0.15)] dark:hover:shadow-[0_12px_40px_rgba(124,58,237,0.15)]"
+      )}
     >
       <div className="relative w-full aspect-video overflow-hidden bg-muted/30 transform-gpu isolate">
         {project.badge && (
@@ -121,7 +127,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
 
           <p
             onClick={() => setShowmore((show) => !show)}
-            className="text-muted-foreground text-xs sm:text-sm leading-relaxed cursor-pointer select-none"
+            className="text-muted-foreground text-sm sm:text-base leading-relaxed cursor-pointer select-none"
           >
             {showmore || project.description.length <= 90 ? (
               <>
@@ -144,7 +150,7 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
           {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="border border-purple-500/20 bg-purple-500/10 rounded-full px-3 py-1 text-[11px] font-medium text-purple-500 tracking-wide font-mono shadow-[0_0_10px_rgba(124,58,237,0.05)]"
+              className="border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full px-3 py-1 text-[11px] font-medium text-purple-400 tracking-wide font-mono shadow-[0_0_10px_rgba(124,58,237,0.05)]"
             >
               {tech}
             </span>
@@ -215,13 +221,17 @@ const FeaturedProjectCard = memo(function FeaturedProjectCard({ project, index, 
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
       className={cn(
-        "group relative flex flex-col lg:flex-row h-full overflow-hidden rounded-[1.5rem] lg:rounded-[2.5rem] border border-border/50 from-card/80 via-card/40 to-background backdrop-blur-xl hover:border-purple-500/30 hover:shadow-[0_20px_60px_rgba(124,58,237,0.15)] transition-all duration-500 ease-out",
+        "group relative flex flex-col lg:flex-row h-full overflow-hidden rounded-[1.5rem] lg:rounded-[2.5rem] backdrop-blur-xl transition-all duration-500 ease-out",
+        "bg-gradient-to-br from-purple-500/10 via-white/60 to-blue-500/10 dark:from-purple-500/5 dark:via-card/40 dark:to-blue-500/5",
+        "border border-purple-500/30 dark:border-border/50",
+        "shadow-[0_10px_40px_rgba(124,58,237,0.1)] dark:shadow-none",
+        "hover:border-purple-500/50 dark:hover:border-purple-500/30 hover:shadow-[0_20px_60px_rgba(124,58,237,0.2)] dark:hover:shadow-[0_20px_60px_rgba(124,58,237,0.15)]",
         isReversed ? "lg:flex-row-reverse" : ""
       )}
     >
       <div className="relative w-full lg:w-[55%] aspect-video lg:aspect-auto lg:min-h-[400px] overflow-hidden bg-muted/30 transform-gpu isolate">
         {project.badge && (
-          <div className="absolute top-6 left-6 z-20 px-4 py-1.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-500 text-xs font-bold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.2)]">
+          <div className="absolute top-6 left-6 z-20 px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 text-purple-400 text-xs font-bold tracking-wide backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.2)]">
             {project.badge}
           </div>
         )}
@@ -243,7 +253,7 @@ const FeaturedProjectCard = memo(function FeaturedProjectCard({ project, index, 
 
           <p
             onClick={() => setShowmore((show) => !show)}
-            className="text-muted-foreground text-xs sm:text-sm lg:text-base leading-relaxed cursor-pointer select-none"
+            className="text-muted-foreground text-sm sm:text-base leading-relaxed cursor-pointer select-none"
           >
             {showmore || project.description.length <= 150 ? (
               <>
@@ -266,7 +276,7 @@ const FeaturedProjectCard = memo(function FeaturedProjectCard({ project, index, 
           {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="border border-purple-500/20 bg-purple-500/10 rounded-full px-3 py-1 lg:px-4 lg:py-1.5 text-[11px] lg:text-xs font-semibold text-purple-500 tracking-wide font-mono shadow-[0_0_10px_rgba(124,58,237,0.05)]"
+              className="border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full px-3 py-1 lg:px-4 lg:py-1.5 text-[11px] lg:text-xs font-semibold text-purple-400 tracking-wide font-mono shadow-[0_0_10px_rgba(124,58,237,0.05)]"
             >
               {tech}
             </span>

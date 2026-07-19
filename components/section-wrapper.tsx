@@ -66,7 +66,9 @@ export function SectionWrapper({
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
               {titleMain}{" "}
               {titleHighlight && (
-                <span className="text-muted-foreground">{titleHighlight}</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 from-55% to-blue-500">
+                  {titleHighlight}
+                </span>
               )}
             </h2>
           </m.div>
