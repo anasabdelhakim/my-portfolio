@@ -50,6 +50,14 @@ const projects: ProjectType[] = [
     github: "https://github.com/anasabdelhakim/Quiz_Mastro",
   },
   {
+    title: "Black Falcon",
+    description: "A high-performance landing page and attendance management platform for smart cards. Engineered for unreliable networks with sub-second tap recording, clone-proof cards, and offline-first cloud synchronization.",
+    image: "/bf.avif",
+    technologies: ["Next.js", "React", "Bun", "Tailwind CSS"],
+    live: "http://bf.anasdev.shop",
+    github: "",
+  },
+  {
     title: "e-plantShopping",
     description: "A modern React + TypeScript shopping application that allows users to browse houseplants, add them to a cart, and manage quantities with a smooth and responsive UI.",
     image: "/e-shopping.avif",
@@ -64,14 +72,6 @@ const projects: ProjectType[] = [
     technologies: ["Node.js", "Express", "MongoDB", "Mongoose", "JWT"],
     live: "",
     github: "https://github.com/anasabdelhakim/book-review-app",
-  },
-  {
-    title: "World Wise",
-    description: "A travel web app interface for marking visited cities, displaying location insights, and maintaining personalized travel notes.",
-    image: "/world-wise.avif",
-    technologies: ["JavaScript", "CSS3", "HTML5"],
-    live: "https://world-wise-three-rho.vercel.app/",
-    github: "https://github.com/anasabdelhakim/World-Wise",
   },
 ];
 
@@ -171,15 +171,17 @@ const ProjectCard = memo(function ProjectCard({ project, index }: { project: Pro
             </a>
           )}
 
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
-          >
-            <GithubIcon />
-            <span>Code</span>
-          </a>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn relative flex items-center justify-center gap-2 h-10 px-6 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+            >
+              <GithubIcon />
+              <span>Code</span>
+            </a>
+          )}
         </div>
       </div>
     </m.div>
@@ -295,15 +297,17 @@ const FeaturedProjectCard = memo(function FeaturedProjectCard({ project, index, 
             </a>
           )}
 
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group/btn relative flex items-center justify-center gap-2 h-10 lg:h-12 px-6 lg:px-8 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] lg:text-xs uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
-          >
-            <GithubIcon />
-            <span>Code</span>
-          </a>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn relative flex items-center justify-center gap-2 h-10 lg:h-12 px-6 lg:px-8 rounded-full border border-border bg-background/50 hover:bg-muted text-foreground text-[11px] lg:text-xs uppercase tracking-[1px] active:scale-[0.99] transition-all duration-300 ease-out z-10"
+            >
+              <GithubIcon />
+              <span>Code</span>
+            </a>
+          )}
         </div>
       </div>
     </m.div>
